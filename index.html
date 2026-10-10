@@ -59,7 +59,16 @@ tailwind.config = {
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   html{scroll-behavior:smooth}
-  body{font-family:'Nunito','Quicksand',system-ui,sans-serif;background:#FFFBF2;color:#2D2A4A;-webkit-tap-highlight-color:transparent}
+  /* Document-level sideways lockdown: body-only clipping leaks on iOS/Android and drags the whole page left */
+  html,body{overflow-x:hidden;overflow-x:clip}
+  body{font-family:'Nunito','Quicksand',system-ui,sans-serif;background:#FFFBF2;color:#2D2A4A;-webkit-tap-highlight-color:transparent;position:relative;width:100%}
+  /* Grid blowout guard: no column or long word may exceed the phone width */
+  #top [class*="grid"]>*{min-width:0}
+  h1,h2,h3,p,li,button{overflow-wrap:break-word}
+  img{max-width:100%}
+  /* Centered nowrap badges must never exceed the phone width */
+  .pill-guard{max-width:calc(100vw - 2.5rem)}
+  @media(max-width:380px){.pill-guard{white-space:normal!important;text-align:center}}
   ::selection{background:#7C6CF0;color:#fff}
   .blob{position:absolute;filter:blur(70px);opacity:.55;pointer-events:none;z-index:0}
   .stars::before,.stars::after{content:'✦ ✧ ⋆ ✦ ⋆';position:absolute;font-size:13px;letter-spacing:14px;color:#C2B8FF;opacity:.7;pointer-events:none}
@@ -82,11 +91,13 @@ tailwind.config = {
   #waitlistModal.active{display:flex}
   #quizModal{display:none}
   #quizModal.active{display:flex}
+  #quizModal .sheet{max-height:92dvh}
   @media(max-width:767px){
     #waitlistModal{align-items:stretch;justify-content:stretch;padding:0}
     #waitlistModal .sheet{width:100%!important;max-width:100%!important;min-height:100dvh;border-radius:0!important;margin:0!important}
-    #quizModal{align-items:stretch;justify-content:stretch;padding:0}
-    #quizModal .sheet{width:100%!important;max-width:100%!important;min-height:100dvh;border-radius:0!important;margin:0!important}
+    /* Quiz is a bottom sheet on phones (all steps): docked bottom, rounded top, slide-up entrance */
+    #quizModal{align-items:flex-end;padding:0}
+    #quizModal .sheet{width:100%!important;max-width:100%!important;min-height:0!important;max-height:92dvh;border-radius:26px 26px 0 0!important;margin:0!important;animation:sheetUp .38s cubic-bezier(.2,.8,.3,1)}
   }
   /* Language gate — auto popup on first visit: dead-center + responsive */
   #langGate{display:none;position:fixed;inset:0;z-index:200;padding:16px;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -130,14 +141,22 @@ tailwind.config = {
   .moon-spin{display:inline-block;animation:moonSpin 6s linear infinite}
   @keyframes analyzingPulse{0%,100%{opacity:.5}50%{opacity:1}}
   .analyzing-pulse{animation:analyzingPulse 1.6s ease-in-out infinite}
-  /* Quiz step transitions (direction-aware) */
-  .quiz-step{animation-duration:.34s;animation-timing-function:cubic-bezier(.2,.8,.3,1);animation-fill-mode:both}
+  /* Quiz step transitions (direction-aware, user-friendly caps) */
+  .quiz-step{animation-duration:.3s;animation-timing-function:cubic-bezier(.2,.8,.3,1);animation-fill-mode:both}
   .quiz-step-fwd{animation-name:quizSlideFwd}
   .quiz-step-back{animation-name:quizSlideBack}
   @keyframes quizSlideFwd{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
   @keyframes quizSlideBack{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:none}}
+  .quiz-step-exit{animation:quizStepExit .22s cubic-bezier(.3,.7,.4,1) both}
+  @keyframes quizStepExit{to{opacity:0;transform:translateX(-34px)}}
+  .quiz-step-exit-back{animation:quizStepExitBack .22s cubic-bezier(.3,.7,.4,1) both}
+  @keyframes quizStepExitBack{to{opacity:0;transform:translateX(34px)}}
+  .quiz-opt{position:relative}
+  .quiz-opt.selected{padding-right:48px}
   .quiz-opt-in{opacity:0;animation:quizFadeUp .4s cubic-bezier(.2,.8,.3,1) forwards}
   @keyframes quizFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .quiz-opt.selected::after{content:'✓';position:absolute;right:14px;top:50%;margin-top:-13px;width:26px;height:26px;border-radius:999px;background:#7C6CF0;color:#fff;font-size:15px;font-weight:900;display:grid;place-items:center;animation:tickPop .25s cubic-bezier(.2,.9,.3,1.4) both}
+  @keyframes tickPop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
   /* Blessing celebration (pastel CSS magic) */
   .bless-stage{position:relative;width:150px;height:150px;margin:0 auto;display:grid;place-items:center}
   .bless-icon{font-size:64px;position:relative;z-index:2}
@@ -158,15 +177,13 @@ tailwind.config = {
     mask:radial-gradient(circle, transparent 34px, #000 35px, #000 62px, transparent 63px);
     animation:sunSpin 14s linear infinite}
   @keyframes sunSpin{to{transform:rotate(360deg)}}
-  /* Result bottom-sheet (mobile only, outcome step) */
+  /* Bottom-sheet handle (mobile quiz, all steps) */
   #quizModal .sheet-handle{display:none}
   @media(max-width:767px){
-    #quizModal.quiz-result-mode{align-items:flex-end}
-    #quizModal.quiz-result-mode .sheet{min-height:0!important;max-height:92dvh;border-radius:26px 26px 0 0!important;animation:sheetUp .38s cubic-bezier(.2,.8,.3,1)}
-    #quizModal.quiz-result-mode .sheet-handle{display:block;width:44px;height:5px;border-radius:999px;background:#D9D2F5;margin:10px auto 0}
+    #quizModal .sheet-handle{display:block;width:44px;height:5px;border-radius:999px;background:#D9D2F5;margin:10px auto 0}
   }
   @keyframes sheetUp{from{transform:translateY(60px);opacity:.6}to{transform:none;opacity:1}}
-  @media (prefers-reduced-motion: reduce){.quiz-step,.quiz-opt-in,.bless-pop,.bless-halo,.bless-spark,.bless-card{animation:none!important;opacity:1!important;transform:none!important}}
+  @media (prefers-reduced-motion: reduce){.quiz-step,.quiz-step-exit,.quiz-step-exit-back,.quiz-opt-in,.quiz-opt.selected::after,.bless-pop,.bless-halo,.bless-spark,.bless-card,.sun-rays,.sun-glow{animation:none!important;opacity:1!important;transform:none!important}}
   input[type=text],input[type=tel]{font-size:17px!important} /* prevents iOS auto-zoom */
   .field{width:100%;border:2px solid #EDE9FF;background:#FBFAFF;border-radius:16px;padding:15px 16px;outline:none;transition:.2s}
   .field:focus{border-color:#7C6CF0;background:#fff;box-shadow:0 0 0 4px rgba(124,108,240,.15)}
@@ -260,7 +277,7 @@ tailwind.config = {
           <div class="tw absolute top-16 right-14 text-[#FFE9A8] text-sm" style="animation-delay:.8s">✧</div>
           <div class="tw absolute bottom-20 left-6 text-white text-lg" style="animation-delay:1.4s">⋆</div>
         </div>
-        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 md:left-6 md:translate-x-0 bg-ink text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-card whitespace-nowrap" data-i18n="beta_pill">
+        <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 md:left-6 md:translate-x-0 bg-ink text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-card whitespace-nowrap pill-guard" data-i18n="beta_pill">
           ⭐ Private Beta • Onboarding slowly
         </div>
       </div>
@@ -390,7 +407,7 @@ tailwind.config = {
 
       <!-- Gold -->
       <div class="reveal relative bg-gradient-to-b from-[#6A5AE0] to-[#5849C7] rounded-[26px] p-[3px] shadow-pop md:-translate-y-2">
-        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ink text-honey text-[12px] font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-card whitespace-nowrap" data-i18n="popular">⭐ Most Popular</div>
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ink text-honey text-[12px] font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-card whitespace-nowrap pill-guard" data-i18n="popular">⭐ Most Popular</div>
         <div class="bg-white rounded-[23px] p-7 h-full flex flex-col">
           <div class="flex items-center justify-between">
             <h3 class="font-black text-[22px] text-primary-700" data-i18n="gold_name">Gold Plan</h3>
@@ -525,7 +542,7 @@ tailwind.config = {
 <!-- ================= QUIZ MODAL ================= -->
 <div id="quizModal" class="fixed inset-0 z-[100] items-center justify-center p-0 md:p-6" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
   <div class="absolute inset-0 bg-[#2D2A4A]/55 backdrop-blur-md" onclick="closeQuiz()"></div>
-  <div class="sheet pop relative bg-[#FFFBF2] w-full md:max-w-[460px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white" style="max-height:100dvh">
+  <div class="sheet pop relative bg-[#FFFBF2] w-full md:max-w-[460px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white">
     <div class="sheet-handle"></div>
     <div class="sticky top-0 z-10 bg-[#FFFBF2]/95 backdrop-blur px-5 pt-4 pb-3 border-b border-[#EDE9FF]">
       <button onclick="closeQuiz()" aria-label="Close" class="absolute top-3 right-4 w-10 h-10 rounded-full bg-white shadow-card grid place-items-center text-[22px] font-black text-[#5B5675] hover:rotate-90 transition">×</button>
@@ -1075,10 +1092,13 @@ function quizBack(){ if(QUIZ.step>=1 && QUIZ.step<=5){ QUIZ.step--; QUIZ_ANIM='b
 function quizAnswer(i){
   if(QUIZ.step<1 || QUIZ.step>4) return;
   QUIZ.answers[QUIZ.step-1]=i;
-  chime(); renderQuiz();
+  chime(); QUIZ_SILENT = true; renderQuiz();
   trackQuiz('QuizStep',{step:QUIZ.step, answer:i, lang:LANG});
+  // Phase 1 (instant): ✓ tick pops on the chosen option. Phase 2: old step drifts out, next glides in.
   const s = QUIZ.step;
-  setTimeout(()=>{ if(QUIZ.step===s){ QUIZ.step++; quizSave(); renderQuiz(); } }, 340);
+  const wrap = document.querySelector('#quizBody .quiz-step');
+  if(wrap){ wrap.classList.remove('quiz-step-fwd','quiz-step-back'); wrap.classList.add('quiz-step-exit'); }
+  setTimeout(()=>{ if(QUIZ.step===s){ QUIZ.step++; quizSave(); renderQuiz(); } }, 500);
 }
 function quizHarvestBirth(){
   try{
@@ -1115,9 +1135,10 @@ function quizToPlan(plan){
   document.getElementById('quizModal').classList.remove('active');
   openModal(plan);
 }
+let QUIZ_SILENT = false; // tap-feedback re-render: show tick instantly, skip entrance replay
 function renderQuiz(){
   quizMoons(QUIZ.step);
-  document.getElementById('quizModal').classList.toggle('quiz-result-mode', QUIZ.step===7);
+  const silent = QUIZ_SILENT; QUIZ_SILENT = false;
   const B = document.getElementById('quizBody');
   const back = (QUIZ.step>0 && QUIZ.step<6) ? `<div class="text-center"><button onclick="quizBack()" class="mt-4 text-[13.5px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_back'))}</button></div>` : '';
   if(QUIZ.step===0){
@@ -1134,7 +1155,7 @@ function renderQuiz(){
     const qi = QUIZ.step-1;
     const letters = ['a','b','c','d'];
     const opts = [0,1,2,3].map(i=>`
-      <button onclick="quizAnswer(${i})" style="animation-delay:${120+i*70}ms" class="quiz-opt quiz-opt-in ${QUIZ.answers[qi]===i?'selected':''}">${quizEsc(T('quiz_q'+QUIZ.step+letters[i]))}</button>`).join('');
+      <button onclick="quizAnswer(${i})" ${silent?'':'style="animation-delay:'+(140+i*80)+'ms"'} class="quiz-opt ${silent?'':'quiz-opt-in'} ${QUIZ.answers[qi]===i?'selected':''}">${quizEsc(T('quiz_q'+QUIZ.step+letters[i]))}</button>`).join('');
     B.innerHTML = `
       <p class="text-[12px] font-black tracking-[.16em] uppercase text-primary-600">Question ${QUIZ.step} / 4</p>
       <h2 id="quizTitle" class="mt-1.5 text-[21px] leading-snug font-black">${quizEsc(T('quiz_q'+QUIZ.step+'t'))}</h2>
@@ -1230,8 +1251,8 @@ function renderQuiz(){
       <div class="text-center"><button onclick="quizRestart()" class="mt-4 text-[13px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_restart'))}</button></div>
       `;
   }
-  // Direction-aware entrance: forward slides from right, Back slides from left
-  const animCls = (typeof QUIZ_ANIM!=='undefined' && QUIZ_ANIM==='back') ? 'quiz-step-back' : 'quiz-step-fwd';
+  // Direction-aware entrance: forward slides from right, Back slides from left (skipped on silent tick renders)
+  const animCls = silent ? '' : ((typeof QUIZ_ANIM!=='undefined' && QUIZ_ANIM==='back') ? 'quiz-step-back' : 'quiz-step-fwd');
   QUIZ_ANIM = 'fwd';
   B.innerHTML = `<div class="quiz-step ${animCls}">${B.innerHTML}</div>`;
   const sheet = document.querySelector('#quizModal .sheet');
