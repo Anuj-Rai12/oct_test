@@ -126,7 +126,8 @@ tailwind.config = {
   .quiz-banner{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;background:linear-gradient(135deg,#2D2A4A,#5849C7);border:2px solid rgba(255,255,255,.25);border-radius:22px;padding:14px 16px;box-shadow:0 14px 34px -8px rgba(45,42,74,.5)}
   .quiz-banner.hidden{display:none}
   .quiz-banner-icon{flex-shrink:0;width:44px;height:44px;border-radius:16px;background:rgba(255,201,77,.18);display:grid;place-items:center;font-size:24px}
-  .quiz-banner-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:999px;border:none;background:rgba(255,255,255,.16);color:#fff;font-size:16px;font-weight:900;cursor:pointer;line-height:1}
+  .quiz-banner-x{position:absolute;top:10px;right:10px;z-index:1;width:34px;height:34px;border-radius:999px;border:none;background:rgba(255,255,255,.16);color:#fff;font-size:17px;font-weight:900;cursor:pointer;line-height:1}
+  .quiz-banner-head{padding-right:38px}
   .quiz-banner-cta{margin-top:10px;width:100%;border:none;cursor:pointer;border-radius:999px;background:#FFC94D;color:#2D2A4A;font-family:inherit;font-weight:900;font-size:15.5px;padding:12px;transition:filter .2s}
   .quiz-banner-cta:hover{filter:brightness(1.06)}
   .quiz-banner-cta:active{transform:scale(.98)}
@@ -168,6 +169,14 @@ tailwind.config = {
   .bless-spark{position:absolute;z-index:3;color:#E9B64C;pointer-events:none;animation:blessSpark 2.8s ease-in-out infinite}
   @keyframes blessSpark{0%,100%{opacity:0;transform:translate(0,0) scale(.6) rotate(0)}50%{opacity:1;transform:translate(var(--dx,10px),var(--dy,-18px)) scale(1.15) rotate(40deg)}}
   .bless-card{opacity:0;animation:quizFadeUp .55s cubic-bezier(.2,.8,.3,1) .35s forwards}
+  /* Blessing read-more: 5-line clamp + smooth expand */
+  .bless-text{position:relative;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.8,.3,1)}
+  .bless-text.clamped{max-height:11em;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
+  .bless-text.clamped::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2.6em;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff);pointer-events:none}
+  .bless-text.open{display:block}
+  .bless-toggle{background:none;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:13.5px;color:#6A5AE0;padding:10px 4px 0}
+  /* Sticky unlock bar (blessing step): money button never scrolls away */
+  .quiz-sticky-cta{position:sticky;bottom:0;z-index:5;margin:20px -20px -20px;padding:12px 20px 20px;background:linear-gradient(to top,#FFFBF2 72%,rgba(255,251,242,0))}
   /* Radiating sun (Gyani) */
   .sun-glow{animation:blessPop .7s cubic-bezier(.2,.9,.3,1.4) both, sunBreathe 3s ease-in-out 1s infinite !important;filter:drop-shadow(0 0 18px rgba(255,180,60,.85))}
   @keyframes sunBreathe{0%,100%{filter:drop-shadow(0 0 12px rgba(255,180,60,.6))}50%{filter:drop-shadow(0 0 26px rgba(255,180,60,.95))}}
@@ -476,7 +485,7 @@ tailwind.config = {
 <!-- ================= QUIZ BANNER (explainer card, center-bottom, dismissible) ================= -->
 <div id="quizBanner" class="quiz-banner hidden" role="region" aria-label="Take the quiz">
   <button onclick="dismissBanner(event)" aria-label="Dismiss" class="quiz-banner-x">×</button>
-  <div class="flex items-center gap-3">
+  <div class="flex items-center gap-3 quiz-banner-head">
     <span class="quiz-banner-icon">🌙</span>
     <div class="flex-1">
       <b class="block text-white text-[15.5px] leading-snug" data-i18n="quiz_banner_t">Discover Your Baby's Cosmic Blessing</b>
@@ -596,6 +605,7 @@ en: {
   quiz_intro_t:"Discover Your Baby's Cosmic Blessing ✨",
   quiz_intro_d:"Answer 4 gentle questions about your little one and receive a warm glimpse into their soul — written in the stars. Takes less than a minute.",
   quiz_begin:"Begin ✨", quiz_back:"← Back", quiz_restart:"↻ Start fresh",
+  quiz_read_more:"Read more →", quiz_read_less:"← Read less",
   quiz_q1t:"When did your little star first greet the world?",
   quiz_q1a:"In the quiet of the night", quiz_q1b:"At the break of dawn", quiz_q1c:"Under the bright midday sun", quiz_q1d:"During the peaceful twilight",
   quiz_q2t:"When you look deeply into their eyes, what do you feel?",
@@ -678,6 +688,7 @@ hi: {
   quiz_intro_t:"अपने बेबी का कॉस्मिक आशीर्वाद खोजें ✨",
   quiz_intro_d:"अपने नन्हे मेहमान के बारे में 4 आसान सवालों के जवाब दें और सितारों में लिखी उनकी आत्मा की एक प्यारी झलक पाएं। एक मिनट से भी कम समय लगता है।",
   quiz_begin:"शुरू करें ✨", quiz_back:"← वापस", quiz_restart:"↻ नए सिरे से शुरू करें",
+  quiz_read_more:"और पढ़ें →", quiz_read_less:"← कम पढ़ें",
   quiz_q1t:"आपका नन्हा सितारा दुनिया में पहली बार कब आया?",
   quiz_q1a:"शांत रात में", quiz_q1b:"भोर होते समय", quiz_q1c:"तेज़ दोपहर की धूप में", quiz_q1d:"शांत संध्या समय",
   quiz_q2t:"जब आप उनकी आंखों में गहराई से देखते हैं, तो क्या महसूस करते हैं?",
@@ -988,6 +999,46 @@ function blessConfetti(){
     setTimeout(()=>{ try{ window.confetti({particleCount:45, angle:120, spread:60, origin:{x:1, y:0.5}, colors:colors, disableForReducedMotion:true}); }catch(_){} }, 550);
   }catch(_){}
 }
+function revealUnlock(){
+  // After Read-more expands, seat the sticky unlock button fully in view
+  try{
+    const sheet = document.querySelector('#quizModal .sheet');
+    const cta = sheet ? sheet.querySelector('.quiz-sticky-cta') : null;
+    if(!sheet || !cta) return;
+    const rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    sheet.scrollTo({top: Math.max(0, cta.offsetTop - sheet.clientHeight + cta.offsetHeight + 24), behavior: rm?'auto':'smooth'});
+  }catch(_){}
+}
+let BLESS_GEN = 0; // guards transition cleanup against rapid Read more/less tapping
+function toggleBless(){
+  const t = document.getElementById('blessText');
+  if(!t) return;
+  const btn = document.getElementById('blessToggle');
+  const open = !t.classList.contains('open');
+  const gen = ++BLESS_GEN;
+  QUIZ.blessExpanded = open;
+  quizSave();
+  const settled = ()=>{ if(gen===BLESS_GEN){ t.style.maxHeight=''; } };
+  if(open){
+    t.style.maxHeight = t.scrollHeight + 'px'; // lock current (clamped) height
+    void t.offsetHeight;
+    t.classList.remove('clamped');              // EXCLUSIVE: release clamp + fade (the old bug kept both)
+    t.classList.add('open');
+    t.style.maxHeight = t.scrollHeight + 'px';  // glide to full height
+    let revealed = false;
+    const onExpanded = ()=>{ settled(); if(!revealed && gen===BLESS_GEN){ revealed = true; revealUnlock(); } };
+    const done = ()=>{ t.removeEventListener('transitionend', done); onExpanded(); };
+    t.addEventListener('transitionend', done);
+    setTimeout(onExpanded, 650); // fallback (e.g. reduced-motion: no transition events)
+  } else {
+    t.style.maxHeight = t.scrollHeight + 'px';  // lock current (full) height
+    void t.offsetHeight;
+    t.classList.remove('open');
+    t.classList.add('clamped');                 // EXCLUSIVE: clamp visuals back on
+    t.style.maxHeight = '';                     // glide back to clamped 11em
+  }
+  if(btn) btn.textContent = T(open?'quiz_read_less':'quiz_read_more');
+}
 function quizRestart(){
   if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
   QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null, freshReveal:false};
@@ -1049,7 +1100,7 @@ function quizMoons(step){
   const lit = Math.min(5, Math.ceil((step+1)/9*5));
   dots.forEach((d,i)=>d.classList.toggle('lit', i<lit));
 }
-function quizSave(){ try{ localStorage.setItem('babiyo_quiz', JSON.stringify({step:QUIZ.step, answers:QUIZ.answers, birth:QUIZ.birth, archetype:QUIZ.archetype})); }catch(_){} }
+function quizSave(){ try{ localStorage.setItem('babiyo_quiz', JSON.stringify({step:QUIZ.step, answers:QUIZ.answers, birth:QUIZ.birth, archetype:QUIZ.archetype, blessExpanded:!!QUIZ.blessExpanded})); }catch(_){} }
 
 function quizStartFresh(){
   if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
@@ -1066,7 +1117,7 @@ function openQuiz(){
   try{
     const saved = JSON.parse(localStorage.getItem('babiyo_quiz')||'null');
     if(saved && typeof saved.step==='number' && saved.step>=0 && saved.step<=8 && Array.isArray(saved.answers)){
-      QUIZ = {step:saved.step, answers:saved.answers.concat([null,null,null,null]).slice(0,4), birth:saved.birth||{date:'',time:'',place:''}, archetype:saved.archetype||null, timer:null};
+      QUIZ = {step:saved.step, answers:saved.answers.concat([null,null,null,null]).slice(0,4), birth:saved.birth||{date:'',time:'',place:''}, archetype:saved.archetype||null, timer:null, blessExpanded:!!saved.blessExpanded};
       if(QUIZ.step===6) QUIZ.step = QUIZ.birth.date?7:5; // never resume mid-analysis
       if(QUIZ.step===7 && !QUIZ.archetype) QUIZ.step = 5;
       if(QUIZ.step===8 && !QUIZ.archetype) QUIZ.step = 5;
@@ -1197,7 +1248,7 @@ function renderQuiz(){
     QUIZ.timer = setTimeout(()=>{
       QUIZ.timer=null;
       QUIZ.archetype = quizCompute();
-      QUIZ.step = 7; QUIZ.freshReveal = true; quizSave();
+      QUIZ.step = 7; QUIZ.freshReveal = true; QUIZ.blessExpanded = false; quizSave();
       trackQuiz('QuizComplete',{archetype:QUIZ.archetype, lang:LANG});
       if(document.getElementById('quizModal').classList.contains('active')) renderQuiz();
     }, 3000);
@@ -1224,8 +1275,11 @@ function renderQuiz(){
           ${m.sun?'<div class="sun-rays"></div>':''}
         </div>
         <h2 id="quizTitle" class="mt-2 text-[24px] font-black">${quizEsc(T(m.nameKey))}</h2>
-        <p class="bless-card mt-3 text-[15px] font-semibold text-[#4A4663] leading-relaxed text-left bg-white border border-[#EDE9FF] rounded-2xl p-5">${quizEsc(T(m.blessKey))}</p>
-        <button onclick="quizTo(8)" class="mt-5 w-full bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-[16px] rounded-full shadow-pop">${quizEsc(T('quiz_unlock'))}</button>
+        <p id="blessText" class="bless-card bless-text ${QUIZ.blessExpanded?'open':'clamped'} mt-3 text-[15px] font-semibold text-[#4A4663] leading-relaxed text-left bg-white border border-[#EDE9FF] rounded-2xl p-5">${quizEsc(T(m.blessKey))}</p>
+        <div class="text-left"><button id="blessToggle" onclick="toggleBless()" class="bless-toggle">${quizEsc(T(QUIZ.blessExpanded?'quiz_read_less':'quiz_read_more'))}</button></div>
+        <div class="quiz-sticky-cta">
+          <button onclick="quizTo(8)" class="w-full bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-[16px] rounded-full shadow-pop">${quizEsc(T('quiz_unlock'))}</button>
+        </div>
         <div class="text-center"><button onclick="quizRestart()" class="mt-3 text-[13px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_restart'))}</button></div>
       </div>`;
   } else if(QUIZ.step===8){
