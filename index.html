@@ -28,6 +28,7 @@ src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID_HERE&ev=PageView&noscript=1" a
 <!-- End Meta Pixel Code -->
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script>
 tailwind.config = {
   theme: {
@@ -79,9 +80,13 @@ tailwind.config = {
   /* Modal — full-screen takeover on mobile per addendum */
   #waitlistModal{display:none}
   #waitlistModal.active{display:flex}
+  #quizModal{display:none}
+  #quizModal.active{display:flex}
   @media(max-width:767px){
     #waitlistModal{align-items:stretch;justify-content:stretch;padding:0}
     #waitlistModal .sheet{width:100%!important;max-width:100%!important;min-height:100dvh;border-radius:0!important;margin:0!important}
+    #quizModal{align-items:stretch;justify-content:stretch;padding:0}
+    #quizModal .sheet{width:100%!important;max-width:100%!important;min-height:100dvh;border-radius:0!important;margin:0!important}
   }
   /* Language gate — auto popup on first visit: dead-center + responsive */
   #langGate{display:none;position:fixed;inset:0;z-index:200;padding:16px;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -106,6 +111,62 @@ tailwind.config = {
     .spec-fade::after{right:0;background:linear-gradient(to left,#FFFBF2,transparent)}
   }
   input,button{font-family:inherit}
+  /* Quiz banner (explainer card, center-bottom, dismissible) */
+  .quiz-banner{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:45;background:linear-gradient(135deg,#2D2A4A,#5849C7);border:2px solid rgba(255,255,255,.25);border-radius:22px;padding:14px 16px;box-shadow:0 14px 34px -8px rgba(45,42,74,.5)}
+  .quiz-banner.hidden{display:none}
+  .quiz-banner-icon{flex-shrink:0;width:44px;height:44px;border-radius:16px;background:rgba(255,201,77,.18);display:grid;place-items:center;font-size:24px}
+  .quiz-banner-x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:999px;border:none;background:rgba(255,255,255,.16);color:#fff;font-size:16px;font-weight:900;cursor:pointer;line-height:1}
+  .quiz-banner-cta{margin-top:10px;width:100%;border:none;cursor:pointer;border-radius:999px;background:#FFC94D;color:#2D2A4A;font-family:inherit;font-weight:900;font-size:15.5px;padding:12px;transition:filter .2s}
+  .quiz-banner-cta:hover{filter:brightness(1.06)}
+  .quiz-banner-cta:active{transform:scale(.98)}
+  @media(min-width:768px){.quiz-banner{left:50%;right:auto;transform:translateX(-50%);bottom:24px;width:420px}}
+  /* Quiz modal internals */
+  .quiz-opt{width:100%;text-align:left;background:#fff;border:2px solid #EDE9FF;border-radius:18px;padding:15px 16px;font-weight:800;font-size:15.5px;color:#2D2A4A;transition:.18s;cursor:pointer}
+  .quiz-opt:active{transform:scale(.98)}
+  .quiz-opt.selected{border-color:#7C6CF0;background:#F4F1FF;box-shadow:0 0 0 4px rgba(124,108,240,.15)}
+  .moon-dot{font-size:15px;opacity:.28;transition:.3s;filter:grayscale(1)}
+  .moon-dot.lit{opacity:1;filter:none}
+  @keyframes moonSpin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  .moon-spin{display:inline-block;animation:moonSpin 6s linear infinite}
+  @keyframes analyzingPulse{0%,100%{opacity:.5}50%{opacity:1}}
+  .analyzing-pulse{animation:analyzingPulse 1.6s ease-in-out infinite}
+  /* Quiz step transitions (direction-aware) */
+  .quiz-step{animation-duration:.34s;animation-timing-function:cubic-bezier(.2,.8,.3,1);animation-fill-mode:both}
+  .quiz-step-fwd{animation-name:quizSlideFwd}
+  .quiz-step-back{animation-name:quizSlideBack}
+  @keyframes quizSlideFwd{from{opacity:0;transform:translateX(46px)}to{opacity:1;transform:none}}
+  @keyframes quizSlideBack{from{opacity:0;transform:translateX(-46px)}to{opacity:1;transform:none}}
+  .quiz-opt-in{opacity:0;animation:quizFadeUp .4s cubic-bezier(.2,.8,.3,1) forwards}
+  @keyframes quizFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  /* Blessing celebration (pastel CSS magic) */
+  .bless-stage{position:relative;width:150px;height:150px;margin:0 auto;display:grid;place-items:center}
+  .bless-icon{font-size:64px;position:relative;z-index:2}
+  .bless-pop{animation:blessPop .7s cubic-bezier(.2,.9,.3,1.4) both}
+  @keyframes blessPop{0%{opacity:0;transform:scale(.3)}60%{opacity:1;transform:scale(1.18)}100%{opacity:1;transform:scale(1)}}
+  .bless-halo{position:absolute;inset:18px;border-radius:999px;border:3px solid rgba(255,201,77,.8);animation:haloExpand 2.4s ease-out infinite;pointer-events:none}
+  .bless-halo.d2{animation-delay:1.2s;border-color:rgba(124,108,240,.5)}
+  @keyframes haloExpand{0%{transform:scale(.5);opacity:0}25%{opacity:.9}100%{transform:scale(1.5);opacity:0}}
+  .bless-spark{position:absolute;z-index:3;color:#E9B64C;pointer-events:none;animation:blessSpark 2.8s ease-in-out infinite}
+  @keyframes blessSpark{0%,100%{opacity:0;transform:translate(0,0) scale(.6) rotate(0)}50%{opacity:1;transform:translate(var(--dx,10px),var(--dy,-18px)) scale(1.15) rotate(40deg)}}
+  .bless-card{opacity:0;animation:quizFadeUp .55s cubic-bezier(.2,.8,.3,1) .35s forwards}
+  /* Radiating sun (Gyani) */
+  .sun-glow{animation:blessPop .7s cubic-bezier(.2,.9,.3,1.4) both, sunBreathe 3s ease-in-out 1s infinite !important;filter:drop-shadow(0 0 18px rgba(255,180,60,.85))}
+  @keyframes sunBreathe{0%,100%{filter:drop-shadow(0 0 12px rgba(255,180,60,.6))}50%{filter:drop-shadow(0 0 26px rgba(255,180,60,.95))}}
+  .sun-rays{position:absolute;left:50%;top:50%;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:999px;pointer-events:none;
+    background:repeating-conic-gradient(rgba(255,196,80,.55) 0deg 6deg, transparent 6deg 18deg);
+    -webkit-mask:radial-gradient(circle, transparent 34px, #000 35px, #000 62px, transparent 63px);
+    mask:radial-gradient(circle, transparent 34px, #000 35px, #000 62px, transparent 63px);
+    animation:sunSpin 14s linear infinite}
+  @keyframes sunSpin{to{transform:rotate(360deg)}}
+  /* Result bottom-sheet (mobile only, outcome step) */
+  #quizModal .sheet-handle{display:none}
+  @media(max-width:767px){
+    #quizModal.quiz-result-mode{align-items:flex-end}
+    #quizModal.quiz-result-mode .sheet{min-height:0!important;max-height:92dvh;border-radius:26px 26px 0 0!important;animation:sheetUp .38s cubic-bezier(.2,.8,.3,1)}
+    #quizModal.quiz-result-mode .sheet-handle{display:block;width:44px;height:5px;border-radius:999px;background:#D9D2F5;margin:10px auto 0}
+  }
+  @keyframes sheetUp{from{transform:translateY(60px);opacity:.6}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion: reduce){.quiz-step,.quiz-opt-in,.bless-pop,.bless-halo,.bless-spark,.bless-card{animation:none!important;opacity:1!important;transform:none!important}}
   input[type=text],input[type=tel]{font-size:17px!important} /* prevents iOS auto-zoom */
   .field{width:100%;border:2px solid #EDE9FF;background:#FBFAFF;border-radius:16px;padding:15px 16px;outline:none;transition:.2s}
   .field:focus{border-color:#7C6CF0;background:#fff;box-shadow:0 0 0 4px rgba(124,108,240,.15)}
@@ -216,9 +277,9 @@ tailwind.config = {
         <p class="mt-4 text-[17px] md:text-lg text-[#5B5675] font-semibold leading-relaxed max-w-xl mx-auto md:mx-0" data-i18n="hero_sub">
           Connect with expert astrologers, join a community of mindful parents, and nurture your baby's journey.
         </p>
-        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <button onclick="scrollToPlans()" class="bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[17px] py-4 px-8 rounded-full shadow-pop" data-i18n="hero_cta_view">
-            View Plans ↓
+        <div class="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center md:justify-start">
+          <button onclick="openQuiz()" class="bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-4 px-8 rounded-full shadow-pop" data-i18n="hero_cta_quiz">
+            ✨ Discover Your Child's Hidden Potential
           </button>
           <a href="#features" class="bg-white hover:bg-[#F6F2FF] border-2 border-[#EDE9FF] transition text-ink font-black text-[16px] py-[14px] px-8 rounded-full text-center" data-i18n="hero_cta_offer">
             What we offer
@@ -395,6 +456,19 @@ tailwind.config = {
   </footer>
 </div>
 
+<!-- ================= QUIZ BANNER (explainer card, center-bottom, dismissible) ================= -->
+<div id="quizBanner" class="quiz-banner hidden" role="region" aria-label="Take the quiz">
+  <button onclick="dismissBanner(event)" aria-label="Dismiss" class="quiz-banner-x">×</button>
+  <div class="flex items-center gap-3">
+    <span class="quiz-banner-icon">🌙</span>
+    <div class="flex-1">
+      <b class="block text-white text-[15.5px] leading-snug" data-i18n="quiz_banner_t">Discover Your Baby's Cosmic Blessing</b>
+      <span class="block text-white/70 text-[12.5px] font-semibold leading-snug" data-i18n="quiz_banner_d">Answer 4 gentle questions, get your baby's blessing in under a minute.</span>
+    </div>
+  </div>
+  <button onclick="openQuiz()" class="quiz-banner-cta" data-i18n="quiz_banner_c">Take the Quiz ✨</button>
+</div>
+
 <!-- ================= WAITLIST MODAL ================= -->
 <div id="waitlistModal" class="fixed inset-0 z-[100] items-center justify-center p-0 md:p-6" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="absolute inset-0 bg-[#2D2A4A]/55 backdrop-blur-md" onclick="closeModal()"></div>
@@ -425,6 +499,7 @@ tailwind.config = {
             </div>
             <p id="phoneErr" class="hidden mt-1.5 text-[13px] font-bold text-[#E05A4B]" data-i18n="modal_phone_err">Enter a valid 10-digit mobile number (digits only).</p>
             <p class="mt-1.5 text-[12.5px] font-semibold text-[#8B86A5]" data-i18n="modal_note">🔒 We collect Name + WhatsApp only for waitlist &amp; updates. Never sold. No spam.</p>
+            <p id="quizAttachNote" class="hidden mt-2 text-[12.5px] font-extrabold text-[#1E8E5A] bg-mint rounded-2xl px-4 py-2.5" data-i18n="quiz_attached">✨ Quiz blessing attached — no need to re-enter birth details.</p>
           </div>
           <p id="apiErr" class="hidden mt-4 text-center text-[13.5px] font-extrabold text-[#E05A4B] bg-[#FFF1EF] border border-[#FFC9C2] rounded-2xl px-4 py-3" data-i18n="api_err">Something went wrong. Please check your connection and try again.</p>
           <button id="submitBtn" type="submit" class="mt-4 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[17px] py-[16px] rounded-full shadow-pop disabled:opacity-60" data-i18n="modal_submit">
@@ -447,6 +522,21 @@ tailwind.config = {
   </div>
 </div>
 
+<!-- ================= QUIZ MODAL ================= -->
+<div id="quizModal" class="fixed inset-0 z-[100] items-center justify-center p-0 md:p-6" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+  <div class="absolute inset-0 bg-[#2D2A4A]/55 backdrop-blur-md" onclick="closeQuiz()"></div>
+  <div class="sheet pop relative bg-[#FFFBF2] w-full md:max-w-[460px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white" style="max-height:100dvh">
+    <div class="sheet-handle"></div>
+    <div class="sticky top-0 z-10 bg-[#FFFBF2]/95 backdrop-blur px-5 pt-4 pb-3 border-b border-[#EDE9FF]">
+      <button onclick="closeQuiz()" aria-label="Close" class="absolute top-3 right-4 w-10 h-10 rounded-full bg-white shadow-card grid place-items-center text-[22px] font-black text-[#5B5675] hover:rotate-90 transition">×</button>
+      <div id="quizMoons" class="flex items-center gap-1.5" aria-hidden="true">
+        <span class="moon-dot">🌑</span><span class="moon-dot">🌒</span><span class="moon-dot">🌓</span><span class="moon-dot">🌔</span><span class="moon-dot">🌕</span>
+      </div>
+    </div>
+    <div id="quizBody" class="px-5 py-5"></div>
+  </div>
+</div>
+
 <script>
 /* ================= Custom EN/HI Language System (no Google Translate) ================= */
 const BRAND = 'Babiyo'; // change in one place when you finalize the name
@@ -463,7 +553,7 @@ en: {
   hero_badge_new:"NEW", hero_badge_text:"Ancient wisdom × Modern parenting",
   hero_title_a:"Discover Your Baby's Unique Potential", hero_title_b:"Through the Stars.",
   hero_sub:"Connect with expert astrologers, join a community of mindful parents, and nurture your baby's journey.",
-  hero_cta_view:"View Plans ↓", hero_cta_offer:"What we offer",
+  hero_cta_offer:"What we offer", hero_cta_quiz:"✨ Discover Your Child's Hidden Potential",
   trust1:"✅ No spam, ever", trust2:"💬 WhatsApp updates only", trust3:"🛡️ Guidance + entertainment",
   feat_eyebrow:"What we offer", feat_title:"Everything a new parent needs, in one cozy place",
   feat_sub:"Friendly guidance, real community, and joyful rituals — without the dark, scary astrology vibe.",
@@ -486,6 +576,36 @@ en: {
   gold_f2:"Unlimited Astrologer Chat", gold_f3:"Monthly Personalized Pooja",
   gold_btn:"Private Waitlist — Gold", gold_note:"🔒 Only a few beta slots per week",
   how_text:"How it works: Pick Silver or Gold → Join the waitlist (30 seconds) → We WhatsApp you when your slot opens. No payment now.",
+  quiz_intro_t:"Discover Your Baby's Cosmic Blessing ✨",
+  quiz_intro_d:"Answer 4 gentle questions about your little one and receive a warm glimpse into their soul — written in the stars. Takes less than a minute.",
+  quiz_begin:"Begin ✨", quiz_back:"← Back", quiz_restart:"↻ Start fresh",
+  quiz_q1t:"When did your little star first greet the world?",
+  quiz_q1a:"In the quiet of the night", quiz_q1b:"At the break of dawn", quiz_q1c:"Under the bright midday sun", quiz_q1d:"During the peaceful twilight",
+  quiz_q2t:"When you look deeply into their eyes, what do you feel?",
+  quiz_q2a:"The wisdom of an old soul", quiz_q2b:"A playful, joyful spark", quiz_q2c:"A deep, instant sense of peace", quiz_q2d:"Endless curiosity about the world",
+  quiz_q3t:"When they are restless, what brings them back to center?",
+  quiz_q3a:"Gentle rocking and movement", quiz_q3b:"Soft lullabies or mantras", quiz_q3c:"Being held tightly to my heart", quiz_q3d:"Looking at lights, shadows, or nature",
+  quiz_q4t:"How does their energy flow when they are awake?",
+  quiz_q4a:"They quietly observe everything", quiz_q4b:"They are constantly moving and kicking", quiz_q4c:"They are highly vocal and expressive", quiz_q4d:"They seem lost in a dreamy, peaceful state",
+  quiz_birth_t:"When did your star arrive? 🌟",
+  quiz_birth_d:"The exact moment of birth lets us read their cosmic blueprint. Only the date is required.",
+  quiz_bd:"Birth date *", quiz_bt:"Birth time (optional)", quiz_bp:"Birth place (optional)", quiz_bp_ph:"e.g. Jaipur",
+  quiz_birth_err:"Please choose your baby's birth date.", quiz_continue:"Reveal My Blessing →",
+  quiz_analyzing_t:"Aligning the stars…", quiz_analyzing_d:"Reading your baby's cosmic energy…",
+  quiz_bless_eyebrow:"Your baby's cosmic blessing",
+  quiz_arch_shanti:"The Gentle Soul (Shanti)", quiz_arch_tejas:"The Radiant Spark (Tejas)", quiz_arch_gyani:"The Old Sage (Gyani)",
+  quiz_bless_shanti:"Your baby has arrived with a beautifully calm and healing aura. Like a quiet river, their spirit is deep, empathetic, and highly attuned to your emotions. If they ever seem overly sensitive to loud noises or crowded rooms, do not worry — this is simply because they absorb the energy of the world so deeply. Protect their peace, play soft mantras around them, and watch them grow into a person who brings comfort and balance to everyone they meet. You have been chosen to guide a true healer.",
+  quiz_bless_tejas:"What a vibrant life force! Your baby carries the energy of the sun — active, expressive, and full of a fire that cannot be dimmed. If they are restless or demanding at times, smile, for this is the cosmic sign of a natural-born leader. Their soul is eager to experience the world and make an impact. Give them plenty of space to move, speak to them with encouragement, and know that this boundless energy is the foundation of a highly successful, courageous life.",
+  quiz_bless_gyani:"When you look into their eyes and see an old soul, you are absolutely right. Your baby has a profound spiritual depth. They are observant, taking in the world with a wisdom that surpasses their physical age. If they sometimes seem detached or stare into space, they are simply processing the cosmic memories they brought with them. Nurture their curiosity, read to them often, and prepare to be amazed by the profound intelligence they will soon show the world.",
+  quiz_unlock:"Unlock My Full Roadmap →",
+  quiz_upsell_t:"This is just a glimpse ✨",
+  quiz_upsell_d:"The exact positions of the stars at the moment of their birth hold the complete roadmap to their health, career, and spiritual well-being. Let us read their complete cosmic blueprint.",
+  quiz_card200_t:"The Core Harmony Reading — ₹200", quiz_card200_d:"Essential well-being, planetary strengths, and foundational remedies.", quiz_pick200:"Choose Harmony — ₹200",
+  quiz_card300_t:"The Complete Cosmic Roadmap — ₹300", quiz_card300_d:"Detailed life path, deep spiritual analysis, specific mantras, and parental guidance.", quiz_pick300:"Choose Roadmap — ₹300",
+  quiz_attached:"✨ Quiz blessing attached — no need to re-enter birth details.",
+  quiz_banner_t:"Discover Your Baby's Cosmic Blessing",
+  quiz_banner_d:"Answer 4 gentle questions, get your baby's blessing in under a minute.",
+  quiz_banner_c:"Take the Quiz ✨",
   spec_eyebrow:"Meet the experts behind Babiyo", spec_title:"Meet Our Specialists",
   spec_sub:"Real astrologers for mothers & babies — the team guiding your Silver or Gold plan.",
   final_title:"Your baby's stars are waiting. ✨ Secure your beta spot today.",
@@ -515,7 +635,7 @@ hi: {
   hero_badge_new:"नया", hero_badge_text:"प्राचीन ज्ञान × मॉडर्न पेरेंटिंग",
   hero_title_a:"अपने बेबी की यूनिक पोटेंशियल खोजें", hero_title_b:"सितारों के ज़रिए।",
   hero_sub:"एक्सपर्ट एस्ट्रोलॉजर्स से जुड़ें, समझदार पैरेंट्स की कम्युनिटी में शामिल हों, और अपने बेबी की जर्नी को संवारें।",
-  hero_cta_view:"प्लान्स देखें ↓", hero_cta_offer:"हम क्या देते हैं",
+  hero_cta_offer:"हम क्या देते हैं", hero_cta_quiz:"✨ अपने बच्चे की छिपी पोटेंशियल खोजें",
   trust1:"✅ कोई स्पैम नहीं", trust2:"💬 सिर्फ WhatsApp अपडेट", trust3:"🛡️ मार्गदर्शन + एंटरटेनमेंट",
   feat_eyebrow:"हम क्या ऑफर करते हैं", feat_title:"नए पैरेंट्स को जो चाहिए, सब एक प्यारी जगह पर",
   feat_sub:"दोस्ताना मार्गदर्शन, सच्ची कम्युनिटी और खुशियों भरे रिचुअल्स — डरावने ज्योतिष वाले माहौल के बिना।",
@@ -538,6 +658,36 @@ hi: {
   gold_f2:"अनलिमिटेड एस्ट्रोलॉजर चैट", gold_f3:"मंथली पर्सनलाइज़्ड पूजा",
   gold_btn:"प्राइवेट Waitlist — Gold", gold_note:"🔒 हर हफ्ते सिर्फ कुछ Beta स्लॉट्स",
   how_text:"कैसे काम करता है: Silver या Gold चुनें → Waitlist जॉइन करें (30 सेकंड) → स्लॉट खुलते ही हम WhatsApp करेंगे। अभी कोई पेमेंट नहीं।",
+  quiz_intro_t:"अपने बेबी का कॉस्मिक आशीर्वाद खोजें ✨",
+  quiz_intro_d:"अपने नन्हे मेहमान के बारे में 4 आसान सवालों के जवाब दें और सितारों में लिखी उनकी आत्मा की एक प्यारी झलक पाएं। एक मिनट से भी कम समय लगता है।",
+  quiz_begin:"शुरू करें ✨", quiz_back:"← वापस", quiz_restart:"↻ नए सिरे से शुरू करें",
+  quiz_q1t:"आपका नन्हा सितारा दुनिया में पहली बार कब आया?",
+  quiz_q1a:"शांत रात में", quiz_q1b:"भोर होते समय", quiz_q1c:"तेज़ दोपहर की धूप में", quiz_q1d:"शांत संध्या समय",
+  quiz_q2t:"जब आप उनकी आंखों में गहराई से देखते हैं, तो क्या महसूस करते हैं?",
+  quiz_q2a:"किसी पुरानी आत्मा की समझदारी", quiz_q2b:"एक चंचल, खुशमिज़ाज चमक", quiz_q2c:"गहरा, तुरंत सुकून", quiz_q2d:"दुनिया के बारे में अनंत जिज्ञासा",
+  quiz_q3t:"जब वे बेचैन होते हैं, तो क्या उन्हें शांत करता है?",
+  quiz_q3a:"हल्के झूले और हरकत", quiz_q3b:"धीमी लोरियां या मंत्र", quiz_q3c:"मेरे दिल से कसकर लगना", quiz_q3d:"रोशनी, परछाइयों या प्रकृति को देखना",
+  quiz_q4t:"जागते समय उनकी ऊर्जा कैसी बहती है?",
+  quiz_q4a:"वे चुपचाप सब कुछ देखते हैं", quiz_q4b:"वे लगातार हिलते-डुलते और पैर चलाते हैं", quiz_q4c:"वे बहुत बोलते और एक्सप्रेसिव हैं", quiz_q4d:"वे सपने जैसी शांत अवस्था में खोए लगते हैं",
+  quiz_birth_t:"आपका सितारा कब आया? 🌟",
+  quiz_birth_d:"जन्म का सही समय हमें उनका कॉस्मिक ब्लूप्रिंट पढ़ने देता है। सिर्फ तारीख ज़रूरी है।",
+  quiz_bd:"जन्म तारीख *", quiz_bt:"जन्म समय (optional)", quiz_bp:"जन्म स्थान (optional)", quiz_bp_ph:"जैसे जयपुर",
+  quiz_birth_err:"कृपया अपने बेबी की जन्म तारीख चुनें।", quiz_continue:"मेरा आशीर्वाद देखें →",
+  quiz_analyzing_t:"सितारे सज रहे हैं…", quiz_analyzing_d:"आपके बेबी की कॉस्मिक ऊर्जा पढ़ी जा रही है…",
+  quiz_bless_eyebrow:"आपके बेबी का कॉस्मिक आशीर्वाद",
+  quiz_arch_shanti:"द जेंटल सोल (शांति)", quiz_arch_tejas:"द रेडिएंट स्पार्क (तेजस)", quiz_arch_gyani:"द ओल्ड सेज (ज्ञानी)",
+  quiz_bless_shanti:"आपका बेबी बहुत शांत और हीलिंग आभा लेकर आया है। शांत नदी की तरह उनकी आत्मा गहरी, भावुक और आपकी भावनाओं से जुड़ी है। अगर वे कभी तेज़ आवाज़ों या भीड़-भाड़ से परेशान लगें, तो चिंता न करें — ऐसा इसलिए है क्योंकि वे दुनिया की ऊर्जा को गहराई से महसूस करते हैं। उनकी शांति की रक्षा करें, उनके आसपास धीमे मंत्र चलाएं, और उन्हें उन लोगों में बदलते देखें जो सभी को सुकून और संतुलन देते हैं। आपको एक सच्चे हीलर का मार्गदर्शन करने के लिए चुना गया है।",
+  quiz_bless_tejas:"कितनी जीवंत ऊर्जा! आपका बेबी सूरज की ऊर्जा लेकर आया है — एक्टिव, एक्सप्रेसिव, और ऐसी आग से भरा जो बुझ नहीं सकती। अगर वे कभी बेचैन या ज़िद्दी लगें, तो मुस्कुराएं, क्योंकि यह नेचुरल-बॉर्न लीडर का कॉस्मिक संकेत है। उनकी आत्मा दुनिया को अनुभव करने और असर छोड़ने के लिए उत्सुक है। उन्हें हिलने-डुलने की खूब जगह दें, उनसे हौसले से बोलें, और जानें कि यह असीम ऊर्जा एक बेहद सफल, साहसी जीवन की नींव है।",
+  quiz_bless_gyani:"जब आप उनकी आंखों में देखते हैं और एक पुरानी आत्मा दिखती है, तो आप बिल्कुल सही हैं। आपके बेबी में गहरी आध्यात्मिक गहराई है। वे observant हैं, दुनिया को अपनी उम्र से बड़ी समझदारी से देख रहे हैं। अगर वे कभी खोए हुए लगें या शून्य में देखते रहें, तो वे बस उन कॉस्मिक यादों को समझ रहे हैं जो वे साथ लाए हैं। उनकी जिज्ञासा को बढ़ाएं, उन्हें अक्सर पढ़ें-सुनाएं, और जल्द दिखने वाली उनकी गहरी बुद्धिमत्ता से हैरान होने के लिए तैयार रहें।",
+  quiz_unlock:"मेरा पूरा रोडमैप खोलें →",
+  quiz_upsell_t:"यह तो सिर्फ एक झलक है ✨",
+  quiz_upsell_d:"उनके जन्म के समय सितारों की सही स्थिति में उनकी सेहत, करियर और आध्यात्मिक well-being का पूरा रोडमैप छिपा है। आइए उनका पूरा कॉस्मिक ब्लूप्रिंट पढ़ें।",
+  quiz_card200_t:"द कोर हार्मनी रीडिंग — ₹200", quiz_card200_d:"बुनियादी well-being, ग्रहों की ताकत और आसान उपाय।", quiz_pick200:"हार्मनी चुनें — ₹200",
+  quiz_card300_t:"द कंप्लीट कॉस्मिक रोडमैप — ₹300", quiz_card300_d:"विस्तृत जीवन पथ, गहरा आध्यात्मिक विश्लेषण, विशेष मंत्र और पैरेंटल मार्गदर्शन।", quiz_pick300:"रोडमैप चुनें — ₹300",
+  quiz_attached:"✨ क्विज़ आशीर्वाद जुड़ा है — जन्म विवरण दोबारा लिखने की ज़रूरत नहीं।",
+  quiz_banner_t:"अपने बेबी का कॉस्मिक आशीर्वाद खोजें",
+  quiz_banner_d:"4 आसान सवालों के जवाब दें, एक मिनट से भी कम में अपने बेबी का आशीर्वाद पाएं।",
+  quiz_banner_c:"क्विज़ लें ✨",
   spec_eyebrow:"Babiyo के पीछे के एक्सपर्ट्स", spec_title:"हमारे विशेषज्ञों से मिलें",
   spec_sub:"माओं और बेबीज़ के लिए असली एस्ट्रोलॉजर्स — आपके Silver या Gold प्लान का मार्गदर्शन करने वाली टीम।",
   final_title:"आपके बेबी के सितारे इंतज़ार कर रहे हैं। ✨ आज ही अपनी Beta सीट पक्की करें।",
@@ -600,6 +750,9 @@ function chooseLang(lang){
   setLang(lang, true);
   gate.classList.remove('active');
   document.body.style.overflow = '';
+  if(window.refreshFab)window.refreshFab();
+  // Chain: after the language is picked, open a FRESH quiz directly (unless already completed once)
+  setTimeout(()=>{ if(window.quizStartFresh && window.quizEverCompleted && !window.quizEverCompleted()) window.quizStartFresh(); }, 700);
 }
 /* Dismiss without choosing = English by default (saved, so the gate won't nag again) */
 function dismissGate(){ chooseLang('en'); }
@@ -611,6 +764,8 @@ addEventListener('keydown', e=>{
   try { saved = localStorage.getItem('babiyo_lang'); } catch(_){}
   if (saved === 'hi' || saved === 'en') {
     setLang(saved, false);
+    // Returning visitor / refresh: show a FRESH quiz again shortly after load (unless already completed once)
+    setTimeout(()=>{ if(window.quizStartFresh && window.quizEverCompleted && !window.quizEverCompleted()) window.quizStartFresh(); }, 900);
   } else {
     setLang('en', false); // default behind the gate
     gate.classList.add('active');
@@ -620,11 +775,9 @@ addEventListener('keydown', e=>{
 </script>
 
 <script>
-function scrollToPlans(){ document.getElementById('pricing').scrollIntoView({behavior:'smooth'}); }
-
 // Header shadow
 const header = document.getElementById('siteHeader');
-addEventListener('scroll', ()=> header.style.boxShadow = scrollY>8 ? '0 8px 24px -12px rgba(45,42,74,.18)' : 'none', {passive:true});
+addEventListener('scroll', ()=> { header.style.boxShadow = scrollY>8 ? '0 8px 24px -12px rgba(45,42,74,.18)' : 'none'; if(window.refreshFab) refreshFab(); }, {passive:true});
 
 // Reveal on scroll
 const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} }),{threshold:.12});
@@ -650,13 +803,19 @@ function openModal(plan){
   submitBtn.disabled = false; submitBtn.textContent = T('modal_submit');
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  try{
+    const q = JSON.parse(localStorage.getItem('babiyo_quiz')||'null');
+    document.getElementById('quizAttachNote').classList.toggle('hidden', !(q && q.archetype));
+  }catch(_){}
+  if(window.refreshFab)window.refreshFab();
   setTimeout(()=>document.getElementById('name').focus(), 80);
 }
 function closeModal(){
   modal.classList.remove('active');
+  if(window.refreshFab)window.refreshFab();
   if (!gate.classList.contains('active')) document.body.style.overflow='';
 }
-addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.classList.contains('active')) closeModal(); });
+addEventListener('keydown', e=>{ if(e.key==='Escape' && modal.classList.contains('active')) closeModal(); if(e.key==='Escape' && window.closeQuiz){ try{ const qm=document.getElementById('quizModal'); if(qm&&qm.classList.contains('active')) closeQuiz(); }catch(_){} } });
 
 function clearErrors(){
   ['name','whatsapp'].forEach(id=>document.getElementById(id).classList.remove('err'));
@@ -708,6 +867,17 @@ async function handleFormSubmit(e){
   const plan = document.getElementById('selectedPlan').value;
   const phoneFmt = '+91 ' + phone;
   const payload = { name, phone: phoneFmt, plan, lang: LANG };
+  // Quiz carry-over: birth data + archetype + answers ride along (n8n ignores unknown fields safely)
+  try{
+    const q = JSON.parse(localStorage.getItem('babiyo_quiz')||'null');
+    if(q && q.archetype){
+      payload.archetype = q.archetype;
+      if(q.birth && q.birth.date) payload.birthDate = q.birth.date;
+      if(q.birth && q.birth.time) payload.birthTime = q.birth.time;
+      if(q.birth && q.birth.place) payload.birthPlace = q.birth.place;
+      if(q.answers) payload.quizAnswers = q.answers;
+    }
+  }catch(_){}
 
   // Best-effort local backup (also powers the invite # on the success screen)
   function saveLocal(){
@@ -758,6 +928,327 @@ function showSuccess(name){
   successMessage.classList.remove('hidden');
   submitBtn.disabled = false; submitBtn.textContent = T('modal_submit');
 }
+</script>
+<script>
+/* ================= Emotional Discovery Quiz (PRD1 flow + PRD2 content) ================= */
+const QUIZ_MAP = [
+  ['shanti','gyani','tejas','shanti'],  // Q1: night / dawn / midday / twilight
+  ['gyani','tejas','shanti','gyani'],   // Q2: old soul / playful / peace / curiosity
+  ['tejas','shanti','shanti','gyani'],  // Q3: rocking / lullabies / held / lights
+  ['gyani','tejas','tejas','shanti'],   // Q4: observe / moving / vocal / dreamy
+];
+const QUIZ_ARCH_META = {
+  shanti:{icon:'🌙', nameKey:'quiz_arch_shanti', blessKey:'quiz_bless_shanti'},
+  tejas:{icon:'🌟', nameKey:'quiz_arch_tejas', blessKey:'quiz_bless_tejas'},
+  gyani:{icon:'☀️', sun:true, nameKey:'quiz_arch_gyani', blessKey:'quiz_bless_gyani'},
+};
+let QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null, freshReveal:false};
+let QUIZ_ANIM = 'fwd'; // step transition direction consumed by renderQuiz
+function revealChime(){
+  try{
+    const AC = window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    const ctx = new AC();
+    const t = ctx.currentTime;
+    [[523.25,0],[659.25,0.15],[783.99,0.3],[1046.5,0.45]].forEach(([f,dt])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='triangle'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t+dt);
+      g.gain.exponentialRampToValueAtTime(0.07,t+dt+0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+dt+0.6);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t+dt); o.stop(t+dt+0.65);
+    });
+    setTimeout(()=>{try{ctx.close()}catch(_){}},1400);
+  }catch(_){}
+}
+function blessConfetti(){
+  try{
+    if(typeof window.confetti !== 'function') return; // CDN blocked/offline: CSS celebration still plays
+    const colors = ['#FFC94D','#7C6CF0','#FF9D7A','#B39DFF','#ffffff'];
+    window.confetti({particleCount:90, spread:75, origin:{y:0.35}, colors:colors, disableForReducedMotion:true, ticks:220});
+    setTimeout(()=>{ try{ window.confetti({particleCount:45, angle:60, spread:60, origin:{x:0, y:0.5}, colors:colors, disableForReducedMotion:true}); }catch(_){} }, 350);
+    setTimeout(()=>{ try{ window.confetti({particleCount:45, angle:120, spread:60, origin:{x:1, y:0.5}, colors:colors, disableForReducedMotion:true}); }catch(_){} }, 550);
+  }catch(_){}
+}
+function quizRestart(){
+  if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
+  QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null, freshReveal:false};
+  try{ localStorage.removeItem('babiyo_quiz'); }catch(_){}
+  try{ localStorage.removeItem('babiyo_quiz_funnel'); }catch(_){}
+  QUIZ_ANIM = 'back';
+  trackQuiz('QuizRestart',{lang:LANG});
+  renderQuiz();
+}
+
+let BANNER_SNOOZE = false; // × hides the banner for this visit only (in-memory: back on refresh, nothing persisted)
+function quizEverCompleted(){
+  try{ const s = JSON.parse(localStorage.getItem('babiyo_quiz')||'null'); return !!(s && s.archetype); }catch(_){ return false; }
+}
+function refreshFab(){
+  const w = document.getElementById('waitlistModal').classList.contains('active');
+  const q = document.getElementById('quizModal').classList.contains('active');
+  const g = document.getElementById('langGate').classList.contains('active');
+  // Banner is always present: hidden only behind an open modal/gate or while snoozed
+  const bannerVisible = !(w||q||g||BANNER_SNOOZE);
+  document.getElementById('quizBanner').classList.toggle('hidden', !bannerVisible);
+}
+function dismissBanner(e){
+  if(e && e.stopPropagation) e.stopPropagation();
+  BANNER_SNOOZE = true;
+  document.getElementById('quizBanner').classList.add('hidden');
+}
+function trackQuiz(ev, data){
+  try{
+    const key='babiyo_quiz_funnel';
+    const f = JSON.parse(localStorage.getItem(key)||'{}');
+    f.lastEvent = ev; f.at = new Date().toISOString();
+    if(data) f.lastData = data;
+    localStorage.setItem(key, JSON.stringify(f));
+  }catch(_){}
+  if(typeof fbq==='function'){ try{ fbq('trackCustom', ev, data||{}); }catch(_){} }
+}
+function chime(){
+  try{
+    const AC = window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    const ctx = new AC();
+    const t = ctx.currentTime;
+    [[880,0],[1318.5,0.12]].forEach(([f,dt])=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.type='sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t+dt);
+      g.gain.exponentialRampToValueAtTime(0.06,t+dt+0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+dt+0.35);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t+dt); o.stop(t+dt+0.4);
+    });
+    setTimeout(()=>{try{ctx.close()}catch(_){}},700);
+  }catch(_){}
+}
+function quizEsc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function quizMoons(step){
+  const dots = document.querySelectorAll('#quizMoons .moon-dot');
+  const lit = Math.min(5, Math.ceil((step+1)/9*5));
+  dots.forEach((d,i)=>d.classList.toggle('lit', i<lit));
+}
+function quizSave(){ try{ localStorage.setItem('babiyo_quiz', JSON.stringify({step:QUIZ.step, answers:QUIZ.answers, birth:QUIZ.birth, archetype:QUIZ.archetype})); }catch(_){} }
+
+function quizStartFresh(){
+  if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
+  QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null, freshReveal:false};
+  try{ localStorage.removeItem('babiyo_quiz'); }catch(_){}
+  QUIZ_ANIM = 'fwd';
+  document.getElementById('quizModal').classList.add('active');
+  document.body.style.overflow='hidden';
+  refreshFab();
+  trackQuiz('QuizStart',{lang:LANG, fresh:true});
+  renderQuiz();
+}
+function openQuiz(){
+  try{
+    const saved = JSON.parse(localStorage.getItem('babiyo_quiz')||'null');
+    if(saved && typeof saved.step==='number' && saved.step>=0 && saved.step<=8 && Array.isArray(saved.answers)){
+      QUIZ = {step:saved.step, answers:saved.answers.concat([null,null,null,null]).slice(0,4), birth:saved.birth||{date:'',time:'',place:''}, archetype:saved.archetype||null, timer:null};
+      if(QUIZ.step===6) QUIZ.step = QUIZ.birth.date?7:5; // never resume mid-analysis
+      if(QUIZ.step===7 && !QUIZ.archetype) QUIZ.step = 5;
+      if(QUIZ.step===8 && !QUIZ.archetype) QUIZ.step = 5;
+    } else {
+      QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null};
+    }
+  }catch(_){ QUIZ = {step:0, answers:[null,null,null,null], birth:{date:'',time:'',place:''}, archetype:null, timer:null}; }
+  document.getElementById('quizModal').classList.add('active');
+  document.body.style.overflow='hidden';
+  refreshFab();
+  trackQuiz('QuizStart',{lang:LANG});
+  renderQuiz();
+}
+function closeQuiz(){
+  if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
+  quizSave(); // persist abandonment point
+  document.getElementById('quizModal').classList.remove('active');
+  refreshFab();
+  if(!document.getElementById('waitlistModal').classList.contains('active') && !document.getElementById('langGate').classList.contains('active')) document.body.style.overflow='';
+}
+function quizTo(n){ QUIZ.step=n; quizSave(); renderQuiz(); }
+function quizBack(){ if(QUIZ.step>=1 && QUIZ.step<=5){ QUIZ.step--; QUIZ_ANIM='back'; quizSave(); renderQuiz(); } }
+function quizAnswer(i){
+  if(QUIZ.step<1 || QUIZ.step>4) return;
+  QUIZ.answers[QUIZ.step-1]=i;
+  chime(); renderQuiz();
+  trackQuiz('QuizStep',{step:QUIZ.step, answer:i, lang:LANG});
+  const s = QUIZ.step;
+  setTimeout(()=>{ if(QUIZ.step===s){ QUIZ.step++; quizSave(); renderQuiz(); } }, 340);
+}
+function quizHarvestBirth(){
+  try{
+    const d=document.getElementById('qBirthDate'), t=document.getElementById('qBirthTime'), p=document.getElementById('qBirthPlace');
+    if(d) QUIZ.birth.date=d.value||'';
+    if(t) QUIZ.birth.time=(t.value||'').trim();
+    if(p) QUIZ.birth.place=(p.value||'').trim().slice(0,80);
+  }catch(_){}
+}
+function quizSubmitBirth(){
+  quizHarvestBirth();
+  const today = new Date().toISOString().slice(0,10);
+  const err = document.getElementById('qBirthErr');
+  if(!QUIZ.birth.date || QUIZ.birth.date>today){
+    document.getElementById('qBirthDate').classList.add('err');
+    err.classList.remove('hidden');
+    return;
+  }
+  QUIZ.step = 6; quizSave();
+  trackQuiz('QuizStep',{step:5, lang:LANG});
+  renderQuiz();
+}
+function quizCompute(){
+  const tally = {shanti:0, tejas:0, gyani:0};
+  QUIZ.answers.forEach((a,qi)=>{ const arch=(QUIZ_MAP[qi]||[])[a]; if(tally[arch]!==undefined) tally[arch]++; });
+  let best='shanti'; // tie-break priority: shanti > tejas > gyani
+  ['shanti','tejas','gyani'].forEach(k=>{ if(tally[k]>tally[best]) best=k; });
+  return best;
+}
+function quizToPlan(plan){
+  QUIZ.step = 8; quizSave();
+  trackQuiz('QuizUpsell',{plan:plan, archetype:QUIZ.archetype, lang:LANG});
+  if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
+  document.getElementById('quizModal').classList.remove('active');
+  openModal(plan);
+}
+function renderQuiz(){
+  quizMoons(QUIZ.step);
+  document.getElementById('quizModal').classList.toggle('quiz-result-mode', QUIZ.step===7);
+  const B = document.getElementById('quizBody');
+  const back = (QUIZ.step>0 && QUIZ.step<6) ? `<div class="text-center"><button onclick="quizBack()" class="mt-4 text-[13.5px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_back'))}</button></div>` : '';
+  if(QUIZ.step===0){
+    const hasProgress = QUIZ.answers.some(a=>a!==null) || QUIZ.step>0 || !!QUIZ.archetype || (QUIZ.birth && QUIZ.birth.date);
+    B.innerHTML = `
+      <div class="text-center pt-1">
+        <div class="w-16 h-16 mx-auto rounded-[20px] bg-gradient-to-br from-primary-500 to-[#B39DFF] grid place-items-center shadow-soft text-[30px]">✨</div>
+        <h2 id="quizTitle" class="mt-4 text-[24px] leading-tight font-black">${quizEsc(T('quiz_intro_t'))}</h2>
+        <p class="mt-2 text-[14.5px] font-semibold text-[#5B5675] leading-relaxed">${quizEsc(T('quiz_intro_d'))}</p>
+        <button onclick="quizTo(1)" class="mt-6 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[17px] py-[16px] rounded-full shadow-pop">${quizEsc(T('quiz_begin'))}</button>
+        ${hasProgress?`<div class="text-center"><button onclick="quizRestart()" class="mt-3 text-[13px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_restart'))}</button></div>`:''}
+      </div>`;
+  } else if(QUIZ.step>=1 && QUIZ.step<=4){
+    const qi = QUIZ.step-1;
+    const letters = ['a','b','c','d'];
+    const opts = [0,1,2,3].map(i=>`
+      <button onclick="quizAnswer(${i})" style="animation-delay:${120+i*70}ms" class="quiz-opt quiz-opt-in ${QUIZ.answers[qi]===i?'selected':''}">${quizEsc(T('quiz_q'+QUIZ.step+letters[i]))}</button>`).join('');
+    B.innerHTML = `
+      <p class="text-[12px] font-black tracking-[.16em] uppercase text-primary-600">Question ${QUIZ.step} / 4</p>
+      <h2 id="quizTitle" class="mt-1.5 text-[21px] leading-snug font-black">${quizEsc(T('quiz_q'+QUIZ.step+'t'))}</h2>
+      <div class="mt-4 grid gap-2.5">${opts}</div>
+      ${back}`;
+  } else if(QUIZ.step===5){
+    const today = new Date().toISOString().slice(0,10);
+    B.innerHTML = `
+      <div class="text-center">
+        <div class="text-[40px]">🌟</div>
+        <h2 id="quizTitle" class="mt-2 text-[22px] font-black">${quizEsc(T('quiz_birth_t'))}</h2>
+        <p class="mt-1.5 text-[14px] font-semibold text-[#5B5675]">${quizEsc(T('quiz_birth_d'))}</p>
+      </div>
+      <div class="mt-4">
+        <label class="block text-[14px] font-black mb-2" for="qBirthDate">${quizEsc(T('quiz_bd'))}</label>
+        <input id="qBirthDate" type="date" max="${today}" value="${quizEsc(QUIZ.birth.date)}" class="field font-bold">
+      </div>
+      <div class="mt-3 grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[14px] font-black mb-2" for="qBirthTime">${quizEsc(T('quiz_bt'))}</label>
+          <input id="qBirthTime" type="time" value="${quizEsc(QUIZ.birth.time)}" class="field font-bold">
+        </div>
+        <div>
+          <label class="block text-[14px] font-black mb-2" for="qBirthPlace">${quizEsc(T('quiz_bp'))}</label>
+          <input id="qBirthPlace" type="text" maxlength="80" value="${quizEsc(QUIZ.birth.place)}" placeholder="${quizEsc(T('quiz_bp_ph'))}" class="field font-bold">
+        </div>
+      </div>
+      <p id="qBirthErr" class="hidden mt-2 text-[13px] font-bold text-[#E05A4B]">${quizEsc(T('quiz_birth_err'))}</p>
+      <button onclick="quizSubmitBirth()" class="mt-5 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[17px] py-[16px] rounded-full shadow-pop">${quizEsc(T('quiz_continue'))}</button>
+      ${back}`;
+  } else if(QUIZ.step===6){
+    B.innerHTML = `
+      <div class="text-center py-8">
+        <div class="moon-spin text-[52px]">🌕</div>
+        <h2 id="quizTitle" class="analyzing-pulse mt-5 text-[22px] font-black">${quizEsc(T('quiz_analyzing_t'))}</h2>
+        <p class="mt-2 text-[14px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_analyzing_d'))}</p>
+      </div>`;
+    if(QUIZ.timer) clearTimeout(QUIZ.timer);
+    QUIZ.timer = setTimeout(()=>{
+      QUIZ.timer=null;
+      QUIZ.archetype = quizCompute();
+      QUIZ.step = 7; QUIZ.freshReveal = true; quizSave();
+      trackQuiz('QuizComplete',{archetype:QUIZ.archetype, lang:LANG});
+      if(document.getElementById('quizModal').classList.contains('active')) renderQuiz();
+    }, 3000);
+  } else if(QUIZ.step===7){
+    const m = QUIZ_ARCH_META[QUIZ.archetype] || QUIZ_ARCH_META.shanti;
+    if(QUIZ.freshReveal){ QUIZ.freshReveal=false; setTimeout(revealChime, 200); setTimeout(blessConfetti, 450); }
+    B.innerHTML = `
+      <div class="text-center">
+        <p class="text-[12px] font-black tracking-[.16em] uppercase text-primary-600">${quizEsc(T('quiz_bless_eyebrow'))}</p>
+        <div class="bless-stage mt-3">
+          <div class="bless-halo"></div>
+          <div class="bless-halo d2"></div>
+          <span class="bless-spark" style="left:8%;top:18%;font-size:13px;animation-delay:.2s;--dx:-12px;--dy:-20px">✦</span>
+          <span class="bless-spark" style="left:16%;top:64%;font-size:11px;animation-delay:.9s;--dx:-14px;--dy:10px">✧</span>
+          <span class="bless-spark" style="left:30%;top:6%;font-size:12px;animation-delay:1.4s;--dx:-6px;--dy:-22px">⋆</span>
+          <span class="bless-spark" style="left:66%;top:8%;font-size:13px;animation-delay:.5s;--dx:10px;--dy:-20px">✦</span>
+          <span class="bless-spark" style="left:82%;top:26%;font-size:11px;animation-delay:1.1s;--dx:14px;--dy:-8px">✧</span>
+          <span class="bless-spark" style="left:86%;top:62%;font-size:14px;animation-delay:.1s;--dx:12px;--dy:12px">⋆</span>
+          <span class="bless-spark" style="left:70%;top:84%;font-size:11px;animation-delay:1.7s;--dx:8px;--dy:16px">✦</span>
+          <span class="bless-spark" style="left:44%;top:90%;font-size:12px;animation-delay:.7s;--dx:0px;--dy:18px">✧</span>
+          <span class="bless-spark" style="left:22%;top:82%;font-size:13px;animation-delay:2s;--dx:-10px;--dy:14px">⋆</span>
+          <span class="bless-spark" style="left:48%;top:2%;font-size:10px;animation-delay:2.3s;--dx:2px;--dy:-16px">✦</span>
+          <div class="bless-icon bless-pop ${m.sun?'sun-glow':''}">${m.icon}</div>
+          ${m.sun?'<div class="sun-rays"></div>':''}
+        </div>
+        <h2 id="quizTitle" class="mt-2 text-[24px] font-black">${quizEsc(T(m.nameKey))}</h2>
+        <p class="bless-card mt-3 text-[15px] font-semibold text-[#4A4663] leading-relaxed text-left bg-white border border-[#EDE9FF] rounded-2xl p-5">${quizEsc(T(m.blessKey))}</p>
+        <button onclick="quizTo(8)" class="mt-5 w-full bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-[16px] rounded-full shadow-pop">${quizEsc(T('quiz_unlock'))}</button>
+        <div class="text-center"><button onclick="quizRestart()" class="mt-3 text-[13px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_restart'))}</button></div>
+      </div>`;
+  } else if(QUIZ.step===8){
+    B.innerHTML = `
+      <div class="text-center">
+        <h2 id="quizTitle" class="text-[22px] font-black leading-snug">${quizEsc(T('quiz_upsell_t'))}</h2>
+        <p class="mt-2 text-[14px] font-semibold text-[#5B5675] leading-relaxed">${quizEsc(T('quiz_upsell_d'))}</p>
+      </div>
+      <div class="mt-4 grid gap-3">
+        <div class="bg-white border-2 border-[#F1EDFF] rounded-[20px] p-5 text-center">
+          <b class="block text-[17px]">${quizEsc(T('quiz_card200_t'))}</b>
+          <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card200_d'))}</p>
+          <button onclick="quizToPlan('Silver')" class="mt-3 w-full bg-[#F1EDFF] hover:bg-[#E3DAFF] active:scale-[.98] transition text-ink font-black text-[16px] py-3.5 rounded-full">${quizEsc(T('quiz_pick200'))}</button>
+        </div>
+        <div class="bg-gradient-to-b from-[#6A5AE0] to-[#5849C7] rounded-[20px] p-[3px]">
+          <div class="bg-white rounded-[17px] p-5 text-center">
+            <b class="block text-[17px] text-primary-700">${quizEsc(T('quiz_card300_t'))}</b>
+            <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card300_d'))}</p>
+            <button onclick="quizToPlan('Gold')" class="mt-3 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[16px] py-3.5 rounded-full shadow-pop">${quizEsc(T('quiz_pick300'))}</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center"><button onclick="quizRestart()" class="mt-4 text-[13px] font-extrabold text-[#8B86A5] hover:text-primary-600">${quizEsc(T('quiz_restart'))}</button></div>
+      `;
+  }
+  // Direction-aware entrance: forward slides from right, Back slides from left
+  const animCls = (typeof QUIZ_ANIM!=='undefined' && QUIZ_ANIM==='back') ? 'quiz-step-back' : 'quiz-step-fwd';
+  QUIZ_ANIM = 'fwd';
+  B.innerHTML = `<div class="quiz-step ${animCls}">${B.innerHTML}</div>`;
+  const sheet = document.querySelector('#quizModal .sheet');
+  if(sheet) sheet.scrollTop = 0;
+}
+// Re-render open quiz instantly when the header EN/HI pill is used mid-quiz
+try{
+  const _origSetLang = setLang;
+  setLang = function(lang, save){
+    if(QUIZ.step===5) quizHarvestBirth();
+    if(QUIZ.timer){ clearTimeout(QUIZ.timer); QUIZ.timer=null; }
+    _origSetLang(lang, save);
+    if(document.getElementById('quizModal').classList.contains('active')) renderQuiz();
+  };
+}catch(_){}
+// Initial paint: show banner/FAB according to saved state (hidden behind gate if gate is up)
+try{ refreshFab(); }catch(_){}
 </script>
 </body>
 </html>

@@ -1,0 +1,31 @@
+Here is a blueprint for how you can structure this interactive flow, from the questions you ask to the final blessings you deliver.
+The User Journey Architecture
+Before diving into the questions, here is a visualisation of how this "Cosmic Quiz" funnel should flow into your paid tiers:
+Step 1: The Questions (The Inputs)
+Keep the questions focused on the parent's observations rather than complex astrological data. This keeps it easy, emotional, and engaging.
+1. When did your little star first greet the world?
+Options: In the quiet of the night / At the break of dawn / Under the bright midday sun / During the peaceful twilight.
+2. When you look deeply into their eyes, what do you feel?
+Options: The wisdom of an old soul / A playful, joyful spark / A deep, instant sense of peace / Endless curiosity about the world.
+3. When they are restless, what brings them back to center?
+Options: Gentle rocking and movement / Soft lullabies or mantras / Being held tightly to my heart / Looking at lights, shadows, or nature.
+4. How does their energy flow when they are awake?
+Options: They quietly observe everything / They are constantly moving and kicking / They are highly vocal and expressive / They seem lost in a dreamy, peaceful state.
+Step 2: The Outcomes (The Babaji Blessings)
+Based on a mix of their answers, route the parents to one of 3 or 4 archetypes. The writing here must be incredibly positive, soothing, and spiritually uplifting.
+Outcome 1: The Gentle Soul (Shanti)
+"Your baby has arrived with a beautifully calm and healing aura. Like a quiet river, their spirit is deep, empathetic, and highly attuned to your emotions. If they ever seem overly sensitive to loud noises or crowded rooms, do not worry—this is simply because they absorb the energy of the world so deeply. Protect their peace, play soft mantras around them, and watch them grow into a person who brings comfort and balance to everyone they meet. You have been chosen to guide a true healer."
+Outcome 2: The Radiant Spark (Tejas)
+"What a vibrant life force! Your baby carries the energy of the sun—active, expressive, and full of a fire that cannot be dimmed. If they are restless or demanding at times, smile, for this is the cosmic sign of a natural-born leader. Their soul is eager to experience the world and make an impact. Give them plenty of space to move, speak to them with encouragement, and know that this boundless energy is the foundation of a highly successful, courageous life."
+Outcome 3: The Old Sage (Gyani)
+"When you look into their eyes and see an 'old soul,' you are absolutely right. Your baby has a profound spiritual depth. They are observant, taking in the world with a wisdom that surpasses their physical age. If they sometimes seem detached or stare into space, they are simply processing the cosmic memories they brought with them. Nurture their curiosity, read to them often, and prepare to be amazed by the profound intelligence they will soon show the world."
+Step 3: The Upsell (Bridging to your Pricing Tiers)
+After giving them this beautiful, reassuring free outcome, immediately offer the next logical step. Transition naturally from the "feeling" to the "science" of astrology.
+The Call to Action:
+"This is just a small glimpse into the beautiful soul you have brought into the world. The exact positions of the stars at the moment of their birth hold the complete roadmap to their health, career, and spiritual well-being.
+Let us read their complete cosmic blueprint. Choose a path below to uncover their exact planetary strengths, lucky colors, and lifelong spiritual guidance."
+[Card 1: ₹ 200] The Core Harmony Reading (Essential well-being, planetary strengths, and foundational remedies)
+[Card 2: ₹ 300] The Complete Cosmic Roadmap (Detailed life path, deep spiritual analysis, specific mantras, and parental guidance)
+Tips for Implementation
+Use Micro-Interactions: When they click an answer, use a soft sound effect (like a chime or singing bowl) to make it feel like a spiritual experience.
+The "Calculating" Screen: Before showing the result, show a 3-4 second loading screen that says "Aligning the stars..." or "Reading their cosmic energy..." This builds anticipation and makes the final blessing feel personalized and valuable.

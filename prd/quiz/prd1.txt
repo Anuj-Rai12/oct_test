@@ -1,0 +1,32 @@
+Assuming you want a mobile-friendly, lightweight quiz flow that does not require a page reload.
+
+## Strategic Button Placement
+
+For maximum visibility and conversion without disrupting the user experience, implement the button in two primary locations:
+
+* **Hero Section (Above the Fold):** Place the primary Call to Action directly below your main introductory text. Use emotionally engaging, curiosity-driven copy like "Discover Your Child's Hidden Potential" rather than a generic "Take the Quiz."
+* **Sticky Floating Action Button (FAB):** Add a persistent, unobtrusive button at the bottom-right of the screen (e.g., a sparkling star or moon icon). This ensures the parent can enter the funnel at any moment while reading your homepage content.
+
+## PRD: BabyIyo Emotional Discovery Quiz
+
+**Objective**
+Engage visiting parents through an interactive, visually soothing astrology quiz that provides immediate emotional comfort and seamlessly funnels them toward purchasing a premium reading or subscription plan.
+
+**Core User Flow**
+
+1. The user clicks the hero button or sticky FAB.
+2. A fast-loading modal overlay opens with a welcoming introductory screen.
+3. The user answers 3 to 4 simple, relatable questions (e.g., "What personality trait do you most wish for your baby?" or "What is your biggest worry as a parent?").
+4. The user enters the crucial astrological data (date, time, and location of the child's birth).
+5. A brief, calming "analyzing the stars" animation plays, generating a personalized, highly reassuring "teaser" insight.
+6. The final screen presents a seamless transition prompting the user to unlock the complete, detailed astrological roadmap by purchasing a plan.
+
+**Technical & UX Requirements**
+
+* **Seamless Overlay:** The quiz must operate entirely within a popup modal. Navigating away from the main landing page causes friction and increases drop-off.
+* **Visual Progress:** Include a comforting progress indicator, such as slowly illuminating moon phases, to keep parents engaged.
+* **Responsive Design:** The interface must be primarily optimized for mobile devices, utilizing large touch targets for stressed or multi-tasking parents.
+* **Event Tracking:** Developers must integrate analytics to monitor button impressions, step-by-step completion rates, and the exact point where users abandon the quiz.
+* **Data Persistence:** The child's birth data collected during the quiz must automatically carry over to the final checkout or account creation form so parents do not have to type it twice.
+
+What specific payment gateway or platform are you planning to use to handle the final plan purchases?
