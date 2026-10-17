@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Babiyo — Discover Your Baby's Unique Potential Through the Stars</title>
-<meta name="description" content="Connect with expert astrologers, join a community of mindful parents, and nurture your baby's journey. Join the Babiyo private waitlist.">
-<!-- BRAND NAME: search & replace "Babiyo" when you finalize the name -->
+<title>MomNchild — Nurture Your Baby's Roots Through Ancient Sanskar</title>
+<meta name="description" content="Access digital Sanskar guides, soothing audiobooks, virtual rituals, and a community of mindful parents building strong cultural roots. Join the MomNchild private waitlist.">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
 <!-- ============ Meta Pixel Code (PLACEHOLDER) ============
      1. Replace YOUR_PIXEL_ID_HERE with your real Pixel ID (2 places: script + noscript)
@@ -35,7 +36,7 @@ tailwind.config = {
     extend: {
       fontFamily: { nunito: ['Nunito','Quicksand','system-ui','sans-serif'] },
       colors: {
-        cream: '#FFFBF2',
+        cream: '#FAF4E8',
         ink: '#2D2A4A',
         primary: {50:'#EEECFF',100:'#DDD8FF',200:'#C2B8FF',500:'#7C6CF0',600:'#6A5AE0',700:'#5849C7'},
         honey: '#FFC94D',
@@ -61,7 +62,7 @@ tailwind.config = {
   html{scroll-behavior:smooth}
   /* Document-level sideways lockdown: body-only clipping leaks on iOS/Android and drags the whole page left */
   html,body{overflow-x:hidden;overflow-x:clip}
-  body{font-family:'Nunito','Quicksand',system-ui,sans-serif;background:#FFFBF2;color:#2D2A4A;-webkit-tap-highlight-color:transparent;position:relative;width:100%}
+  body{font-family:'Nunito','Quicksand',system-ui,sans-serif;background:#FAF4E8;color:#2D2A4A;-webkit-tap-highlight-color:transparent;position:relative;width:100%}
   /* Grid blowout guard: no column or long word may exceed the phone width */
   #top [class*="grid"]>*{min-width:0}
   h1,h2,h3,p,li,button{overflow-wrap:break-word}
@@ -118,8 +119,8 @@ tailwind.config = {
     .spec-track{width:max-content}
     .spec-img{width:640px;max-width:none;height:auto;scroll-snap-align:center}
     .spec-fade::before,.spec-fade::after{content:'';position:absolute;top:0;bottom:26px;width:26px;z-index:2;pointer-events:none}
-    .spec-fade::before{left:0;background:linear-gradient(to right,#FFFBF2,transparent)}
-    .spec-fade::after{right:0;background:linear-gradient(to left,#FFFBF2,transparent)}
+    .spec-fade::before{left:0;background:linear-gradient(to right,#FAF4E8,transparent)}
+    .spec-fade::after{right:0;background:linear-gradient(to left,#FAF4E8,transparent)}
   }
   input,button{font-family:inherit}
   /* Quiz banner (explainer card, center-bottom, dismissible) */
@@ -176,7 +177,7 @@ tailwind.config = {
   .bless-text.open{display:block}
   .bless-toggle{background:none;border:none;cursor:pointer;font-family:inherit;font-weight:900;font-size:13.5px;color:#6A5AE0;padding:10px 4px 0}
   /* Sticky unlock bar (blessing step): money button never scrolls away */
-  .quiz-sticky-cta{position:sticky;bottom:0;z-index:5;margin:20px -20px -20px;padding:12px 20px 20px;background:linear-gradient(to top,#FFFBF2 72%,rgba(255,251,242,0))}
+  .quiz-sticky-cta{position:sticky;bottom:0;z-index:5;margin:20px -20px -20px;padding:12px 20px 20px;background:linear-gradient(to top,#FAF4E8 72%,rgba(250,244,232,0))}
   /* Radiating sun (Gyani) */
   .sun-glow{animation:blessPop .7s cubic-bezier(.2,.9,.3,1.4) both, sunBreathe 3s ease-in-out 1s infinite !important;filter:drop-shadow(0 0 18px rgba(255,180,60,.85))}
   @keyframes sunBreathe{0%,100%{filter:drop-shadow(0 0 12px rgba(255,180,60,.6))}50%{filter:drop-shadow(0 0 26px rgba(255,180,60,.95))}}
@@ -210,9 +211,9 @@ tailwind.config = {
 <!-- ================= LANGUAGE GATE (auto first-visit popup) ================= -->
 <div id="langGate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
   <div class="absolute inset-0 bg-[#2D2A4A]/60 backdrop-blur-md" onclick="dismissGate()"></div>
-  <div class="gate-card gate-glow relative bg-[#FFFBF2] rounded-[28px] p-5 sm:p-7 text-center border-2 border-white">
+  <div class="gate-card gate-glow relative bg-[#FAF4E8] rounded-[28px] p-5 sm:p-7 text-center border-2 border-white">
     <button onclick="dismissGate()" aria-label="Close" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white shadow-card grid place-items-center text-[22px] font-black text-[#5B5675] hover:rotate-90 transition">×</button>
-    <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-[20px] bg-gradient-to-br from-primary-500 to-[#B39DFF] grid place-items-center shadow-soft text-[26px] sm:text-[30px]">🌙</div>
+    <img src="logo-mark.webp" alt="" aria-hidden="true" class="w-14 h-14 sm:w-16 sm:h-16 mx-auto object-contain">
     <h2 id="gateTitle" class="mt-3 sm:mt-4 text-[20px] sm:text-[24px] font-black leading-tight">Choose your language<br><span class="text-primary-600">अपनी भाषा चुनें</span></h2>
     <p class="mt-2 text-[13px] sm:text-[14px] font-bold text-[#6E6890]">Select once — the whole website will change / एक बार चुनें — पूरी वेबसाइट बदल जाएगी</p>
     <div class="mt-5 sm:mt-6 grid gap-3">
@@ -228,18 +229,13 @@ tailwind.config = {
 </div>
 
 <!-- ================= HEADER ================= -->
-<header id="siteHeader" class="sticky top-0 z-40 bg-[#FFFBF2]/85 backdrop-blur-md border-b border-[#EFEAFF] transition-shadow">
+<header id="siteHeader" class="sticky top-0 z-40 bg-[#FAF4E8]/85 backdrop-blur-md border-b border-[#EFEAFF] transition-shadow">
   <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-    <a href="#top" class="flex items-center gap-2 shrink-0" aria-label="Babiyo home">
-      <span class="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-500 to-[#B39DFF] grid place-items-center shadow-soft">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M20 13.2A8.2 8.2 0 0 1 10.8 4 8.2 8.2 0 1 0 20 13.2Z" fill="#FFF3C4"/>
-          <path d="M18.6 3.6l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7.7-1.8Z" fill="#fff"/>
-        </svg>
-      </span>
+    <a href="#top" class="flex items-center gap-2 shrink-0" aria-label="MomNchild home">
+      <img src="logo-mark.webp" alt="" aria-hidden="true" class="h-10 lg:h-12 w-auto shrink-0">
       <span class="leading-none">
-        <span class="block font-black text-xl tracking-tight">Babiyo</span>
-        <span class="block text-[11px] font-bold text-primary-600 tracking-widest uppercase">Baby • Stars • Care</span>
+        <span class="block font-black text-xl tracking-tight">MomNchild</span>
+        <span class="block text-[11px] font-bold text-primary-600 tracking-widest uppercase">Sanskar • Parenting</span>
       </span>
     </a>
     <nav class="hidden md:flex items-center gap-6 text-[15px] font-bold text-[#5B5675]">
@@ -276,7 +272,7 @@ tailwind.config = {
             <span class="w-8 h-8 rounded-xl bg-mint grid place-items-center">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.2 5.4 5.8.5-4.4 3.8 1.3 5.7L12 14.3 7.1 17.4l1.3-5.7L4 7.9l5.8-.5L12 2z" fill="#2E9E6B"/></svg>
             </span>
-            <span class="text-left leading-tight"><b class="block text-[13px]" data-i18n="float1t">Expert Astrologers</b><span class="text-[11px] text-gray-500 font-bold" data-i18n="float1s">Real-time guidance</span></span>
+            <span class="text-left leading-tight"><b class="block text-[13px]" data-i18n="float1t">Sanskar Experts</b><span class="text-[11px] text-gray-500 font-bold" data-i18n="float1s">Gentle guidance</span></span>
           </div>
           <div class="absolute bottom-4 right-4 floaty2 bg-white/95 backdrop-blur rounded-2xl px-3 py-2 shadow-card flex items-center gap-2">
             <span class="w-8 h-8 rounded-xl bg-peach grid place-items-center text-[16px]">👪</span>
@@ -298,10 +294,10 @@ tailwind.config = {
           <span data-i18n="hero_badge_text">Ancient wisdom × Modern parenting</span>
         </span>
         <h1 class="mt-4 font-black tracking-tight leading-[1.08] text-[34px] sm:text-[44px] md:text-[52px]">
-          <span data-i18n="hero_title_a">Discover Your Baby's Unique Potential</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-[#9D8CFF] to-[#FF9D7A]" data-i18n="hero_title_b">Through the Stars.</span>
+          <span data-i18n="hero_title_a">Nurture Your Baby's Roots</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 via-[#9D8CFF] to-[#FF9D7A]" data-i18n="hero_title_b">Through Ancient Sanskar.</span>
         </h1>
         <p class="mt-4 text-[17px] md:text-lg text-[#5B5675] font-semibold leading-relaxed max-w-xl mx-auto md:mx-0" data-i18n="hero_sub">
-          Connect with expert astrologers, join a community of mindful parents, and nurture your baby's journey.
+          Access digital Sanskar guides, soothing audiobooks, virtual rituals, and a community of mindful parents building strong cultural roots.
         </p>
         <div class="mt-6 flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center md:justify-start">
           <button onclick="openQuiz()" class="bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-4 px-8 rounded-full shadow-pop" data-i18n="hero_cta_quiz">
@@ -325,30 +321,28 @@ tailwind.config = {
     <div class="text-center max-w-2xl mx-auto reveal">
       <p class="text-[13px] font-black tracking-[.18em] uppercase text-primary-600" data-i18n="feat_eyebrow">What we offer</p>
       <h2 class="mt-2 text-[28px] md:text-[38px] font-black tracking-tight" data-i18n="feat_title">Everything a new parent needs, in one cozy place</h2>
-      <p class="mt-2 text-[#6E6890] font-semibold" data-i18n="feat_sub">Friendly guidance, real community, and joyful rituals — without the dark, scary astrology vibe.</p>
+      <p class="mt-2 text-[#6E6890] font-semibold" data-i18n="feat_sub">Sanskar guides, calming audio, and joyful rituals — ancient wisdom made simple for modern parents.</p>
     </div>
     <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
       <div class="reveal bg-white rounded-[24px] p-6 shadow-card border border-[#F1EDFF] hover:-translate-y-1 hover:shadow-soft transition flex flex-col items-center text-center">
-        <div class="w-14 h-14 rounded-2xl bg-[#FFF3C4] grid place-items-center mb-4">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5z" fill="#FFC94D"/><circle cx="9" cy="12" r="1.3" fill="#2D2A4A"/><circle cx="13" cy="12" r="1.3" fill="#2D2A4A"/><circle cx="17" cy="12" r="1.3" fill="#2D2A4A"/></svg>
-        </div>
-        <h3 class="font-black text-[19px]" data-i18n="f1t">Chat with an Astrologer Anytime</h3>
-        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f1d">Get real-time guidance on your baby's well-being and future potential.</p>
+        <div class="w-14 h-14 rounded-2xl bg-[#FFF3C4] grid place-items-center mb-4 text-[26px]">🪔</div>
+        <h3 class="font-black text-[19px]" data-i18n="f1t">Digital Sanskar Guru</h3>
+        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f1d">Get scripture-verified, age-appropriate answers to your parenting and spiritual questions anytime.</p>
       </div>
       <div class="reveal bg-white rounded-[24px] p-6 shadow-card border border-[#F1EDFF] hover:-translate-y-1 hover:shadow-soft transition flex flex-col items-center text-center" style="transition-delay:.05s">
-        <div class="w-14 h-14 rounded-2xl bg-babyblue grid place-items-center mb-4 text-[26px]">👨‍👩‍👦</div>
-        <h3 class="font-black text-[19px]" data-i18n="f2t">Parent Community</h3>
-        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f2d">Share milestones and connect with parents on the same cosmic journey.</p>
+        <div class="w-14 h-14 rounded-2xl bg-babyblue grid place-items-center mb-4 text-[26px]">🎧</div>
+        <h3 class="font-black text-[19px]" data-i18n="f2t">Soothing Audiobooks</h3>
+        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f2d">Screen-free Baby Geeta and simplified Shlokas designed for peaceful bedtime routines and playtime.</p>
       </div>
       <div class="reveal bg-white rounded-[24px] p-6 shadow-card border border-[#F1EDFF] hover:-translate-y-1 hover:shadow-soft transition flex flex-col items-center text-center">
-        <div class="w-14 h-14 rounded-2xl bg-lav grid place-items-center mb-4 text-[26px]">🪔</div>
-        <h3 class="font-black text-[19px]" data-i18n="f3t">Monthly Well-being Poojas</h3>
-        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f3d">Dedicated monthly poojas performed for your baby's health and happiness.</p>
+        <div class="w-14 h-14 rounded-2xl bg-lav grid place-items-center mb-4 text-[26px]">📖</div>
+        <h3 class="font-black text-[19px]" data-i18n="f3t">5-Minute Moral Lessons</h3>
+        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f3d">Bite-sized, actionable Dharmic values for parents to easily teach and instill in their children daily.</p>
       </div>
       <div class="reveal bg-white rounded-[24px] p-6 shadow-card border border-[#F1EDFF] hover:-translate-y-1 hover:shadow-soft transition flex flex-col items-center text-center" style="transition-delay:.05s">
-        <div class="w-14 h-14 rounded-2xl bg-mint grid place-items-center mb-4 text-[26px]">🎁</div>
-        <h3 class="font-black text-[19px]" data-i18n="f4t">Weekly Contests</h3>
-        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f4d">Participate in fun weekly activities and win rewards for your little one.</p>
+        <div class="w-14 h-14 rounded-2xl bg-mint grid place-items-center mb-4 text-[26px]">👪</div>
+        <h3 class="font-black text-[19px]" data-i18n="f4t">Mindful Parent Community</h3>
+        <p class="mt-1.5 text-[#6E6890] font-semibold leading-relaxed" data-i18n="f4d">A judgement-free village to share milestones, values, and traditional remedies with like-minded mothers.</p>
       </div>
     </div>
   </section>
@@ -366,7 +360,7 @@ tailwind.config = {
       <div class="mt-6 grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-center sm:text-left">
         <div class="bg-white/80 rounded-2xl p-4 border border-white"><b class="block" data-i18n="v1t">💛 Peace of mind</b><span class="text-sm font-semibold text-[#6E6890]" data-i18n="v1d">Gentle, positive guidance — never fear-based.</span></div>
         <div class="bg-white/80 rounded-2xl p-4 border border-white"><b class="block" data-i18n="v2t">🤝 Community first</b><span class="text-sm font-semibold text-[#6E6890]" data-i18n="v2d">Real parents, real milestones, together.</span></div>
-        <div class="bg-white/80 rounded-2xl p-4 border border-white"><b class="block" data-i18n="v3t">🌙 Slow &amp; careful</b><span class="text-sm font-semibold text-[#6E6890]" data-i18n="v3d">Private beta, limited slots per astrologer.</span></div>
+        <div class="bg-white/80 rounded-2xl p-4 border border-white"><b class="block" data-i18n="v3t">🌙 Slow &amp; careful</b><span class="text-sm font-semibold text-[#6E6890]" data-i18n="v3d">Private beta, limited slots per expert.</span></div>
       </div>
     </div>
   </section>
@@ -374,14 +368,14 @@ tailwind.config = {
   <!-- ================= PRICING ================= -->
   <section id="specialists" class="relative z-10 max-w-5xl mx-auto px-4 pt-10 md:pt-14 scroll-mt-24">
     <div class="text-center max-w-2xl mx-auto reveal">
-      <p class="text-[13px] font-black tracking-[.18em] uppercase text-primary-600" data-i18n="spec_eyebrow">Meet the experts behind Babiyo</p>
+      <p class="text-[13px] font-black tracking-[.18em] uppercase text-primary-600" data-i18n="spec_eyebrow">Meet the experts behind MomNchild</p>
       <h2 class="mt-2 text-[28px] md:text-[38px] font-black tracking-tight" data-i18n="spec_title">Meet Our Specialists</h2>
-      <p class="mt-2 text-[#6E6890] font-semibold" data-i18n="spec_sub">Real astrologers for mothers &amp; babies — the team guiding your Silver or Gold plan.</p>
+      <p class="mt-2 text-[#6E6890] font-semibold" data-i18n="spec_sub">Sanskar experts for mothers &amp; babies — the team guiding your Spiritual Starter or Sanskar Premium plan.</p>
     </div>
     <div class="reveal spec-fade mt-7 relative">
       <div class="spec-frame rounded-[24px] border-[5px] border-white shadow-card bg-[#141433]">
         <div class="spec-track">
-          <img src="img/team.png" alt="Meet our specialists — Sunita Sharma, Archana Iyer, Rajeshwari Menon, Priya Nair, Meenakshi Joshi and Kavita Deshmukh, astrology guides for mothers and babies" loading="lazy" class="spec-img">
+          <img src="team.webp" alt="Meet our specialists — Sunita Sharma, Archana Iyer, Rajeshwari Menon, Priya Nair, Meenakshi Joshi and Kavita Deshmukh, Sanskar guides for mothers and babies" loading="lazy" class="spec-img">
         </div>
       </div>
     </div>
@@ -396,43 +390,76 @@ tailwind.config = {
     </div>
 
     <div class="mt-7 grid md:grid-cols-2 gap-5 max-w-3xl mx-auto items-stretch">
-      <!-- Silver -->
+      <!-- Spiritual Starter -->
       <div class="reveal bg-white rounded-[26px] p-7 shadow-card border-2 border-[#F1EDFF] flex flex-col">
-        <div class="flex items-center justify-between">
-          <h3 class="font-black text-[22px]" data-i18n="silver_name">Silver Plan</h3>
-          <span class="text-[11px] font-black tracking-widest uppercase bg-[#F4F1FF] text-primary-700 px-3 py-1.5 rounded-full" data-i18n="silver_tag">Starter</span>
+        <div>
+          <h3 class="font-black text-[22px]" data-i18n="starter_name">Spiritual Starter</h3>
+          <p class="mt-0.5 text-[12px] font-black tracking-[.14em] uppercase text-[#8B86A5]" data-i18n="starter_sub">Daily Sanskar</p>
         </div>
-        <div class="mt-2 flex items-end justify-center gap-1"><span class="text-[42px] leading-none font-black">₹200</span><span class="text-[#8B86A5] font-bold mb-1.5" data-i18n="silver_per">/month</span></div>
-        <p class="text-sm font-bold text-[#8B86A5] text-center" data-i18n="silver_desc">Perfect to explore community + contests</p>
+        <div class="mt-2 flex items-end justify-center gap-1"><span class="text-[42px] leading-none font-black">₹299</span><span class="text-[#8B86A5] font-bold mb-1.5" data-i18n="starter_per">/month</span></div>
+        <p class="text-sm font-bold text-[#8B86A5] text-center" data-i18n="starter_desc">Perfect for building daily cultural habits.</p>
         <ul class="mt-5 space-y-3 font-bold text-[15.5px] flex-1">
-          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="silver_f1">Access to Parent Community</span></li>
-          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="silver_f2">Weekly Contests</span></li>
-          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="silver_f3">1 Astrologer Query / month</span></li>
+          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="starter_f1">Unlimited Digital Sanskar Guru (AI)</span></li>
+          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="starter_f2">Access to Baby Geeta &amp; Shloka Audiobooks</span></li>
+          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="starter_f3">Daily 5-Minute Moral Lesson Modules</span></li>
+          <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-mint grid place-items-center text-[13px]">✓</span> <span data-i18n="starter_f4">Access to Mindful Parent Community</span></li>
         </ul>
-        <button onclick="openModal('Silver')" class="mt-6 w-full bg-[#F1EDFF] hover:bg-[#E3DAFF] active:scale-[.98] transition text-ink font-black text-[16.5px] py-4 rounded-full" data-i18n="silver_btn">
-          Private Waitlist — Silver
+        <button onclick="openModal('Spiritual Starter')" class="mt-6 w-full bg-[#F1EDFF] hover:bg-[#E3DAFF] active:scale-[.98] transition text-ink font-black text-[16.5px] py-4 rounded-full" data-i18n="starter_btn">
+          Choose Spiritual Starter
         </button>
       </div>
 
-      <!-- Gold -->
+      <!-- Sanskar Premium -->
       <div class="reveal relative bg-gradient-to-b from-[#6A5AE0] to-[#5849C7] rounded-[26px] p-[3px] shadow-pop md:-translate-y-2">
         <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ink text-honey text-[12px] font-black tracking-widest uppercase px-4 py-1.5 rounded-full shadow-card whitespace-nowrap pill-guard" data-i18n="popular">⭐ Most Popular</div>
         <div class="bg-white rounded-[23px] p-7 h-full flex flex-col">
-          <div class="flex items-center justify-between">
-            <h3 class="font-black text-[22px] text-primary-700" data-i18n="gold_name">Gold Plan</h3>
-            <span class="text-[11px] font-black tracking-widest uppercase bg-honey text-ink px-3 py-1.5 rounded-full" data-i18n="gold_tag">Best value</span>
+          <div>
+            <h3 class="font-black text-[22px] text-primary-700" data-i18n="premium_name">Sanskar Premium</h3>
+            <p class="mt-0.5 text-[12px] font-black tracking-[.14em] uppercase text-primary-600" data-i18n="premium_sub">Complete Spiritual Care</p>
           </div>
-          <div class="mt-2 flex items-end justify-center gap-1"><span class="text-[42px] leading-none font-black text-primary-700">₹300</span><span class="text-[#8B86A5] font-bold mb-1.5" data-i18n="gold_per">/month</span></div>
-          <p class="text-sm font-bold text-[#8B86A5] text-center" data-i18n="gold_desc">For parents who want full guidance</p>
+          <div class="mt-2 flex items-end justify-center gap-1"><span class="text-[42px] leading-none font-black text-primary-700">₹799</span><span class="text-[#8B86A5] font-bold mb-1.5" data-i18n="premium_per">/month</span></div>
+          <p class="text-sm font-bold text-[#8B86A5] text-center" data-i18n="premium_desc">For parents who want personalized rituals and expert guidance.</p>
           <ul class="mt-5 space-y-3 font-bold text-[15.5px] flex-1">
-            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="gold_f1">Everything in Silver</span></li>
-            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="gold_f2">Unlimited Astrologer Chat</span></li>
-            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="gold_f3">Monthly Personalized Pooja</span></li>
+            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="premium_f1">Everything in Spiritual Starter</span></li>
+            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="premium_f2">1 On-Demand Virtual Havan/month (Personalized with Baby's Gotra)</span></li>
+            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="premium_f3">🎁 Bonus: 1 Free 30-Min Expert Consultation (Welcome Offer)</span></li>
+            <li class="flex gap-2.5"><span class="w-6 h-6 shrink-0 rounded-full bg-primary-500 text-white grid place-items-center text-[13px]">✓</span> <span data-i18n="premium_f4">Priority booking for Temple Poojas</span></li>
           </ul>
-          <button onclick="openModal('Gold')" class="mt-6 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[16.5px] py-4 rounded-full shadow-pop" data-i18n="gold_btn">
-            Private Waitlist — Gold
+          <button onclick="openModal('Sanskar Premium')" class="mt-6 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[16.5px] py-4 rounded-full shadow-pop" data-i18n="premium_btn">
+            Choose Sanskar Premium
           </button>
-          <p class="mt-3 text-center text-[12.5px] font-bold text-[#8B86A5]" data-i18n="gold_note">🔒 Only a few beta slots per week</p>
+          <p class="mt-3 text-center text-[12.5px] font-bold text-[#8B86A5]" data-i18n="premium_note">🔒 Limited virtual Havan slots available per month.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- special blessings & care (premium add-ons) -->
+    <div class="mt-10 max-w-3xl mx-auto reveal">
+      <div class="text-center">
+        <p class="text-[13px] font-black tracking-[.18em] uppercase text-primary-600" data-i18n="bless_eyebrow">Premium Upgrades</p>
+        <h3 class="mt-2 text-[24px] md:text-[30px] font-black tracking-tight" data-i18n="bless_title">Premium Special Blessings &amp; Care</h3>
+        <p class="mt-2 text-[#6E6890] font-semibold" data-i18n="bless_sub">Exclusive rituals and expert guidance reserved for active members.</p>
+      </div>
+      <div class="mt-5 grid sm:grid-cols-2 gap-4 md:gap-5 items-stretch">
+        <div class="reveal bg-gradient-to-b from-[#FFC94D] to-[#FFE9A8] rounded-[24px] p-[3px] shadow-card">
+          <div class="bg-white rounded-[21px] p-6 h-full flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 shrink-0 rounded-2xl bg-[#FFF3C4] grid place-items-center text-[24px]">🛕</span>
+              <h4 class="font-black text-[18px] leading-snug" data-i18n="addon1_t">Famous Temple Poojas</h4>
+            </div>
+            <p class="mt-4 text-[24px] leading-none font-black text-primary-700" data-i18n="addon1_price">₹1,100 - ₹5,100+</p>
+            <p class="mt-3 text-[14.5px] text-[#6E6890] font-semibold leading-relaxed" data-i18n="addon1_d">Request specialized poojas at India's most iconic temples. Includes a video of the Sankalp taken in your baby's name and doorstep Prasad delivery.</p>
+          </div>
+        </div>
+        <div class="reveal bg-gradient-to-b from-[#FFC94D] to-[#FFE9A8] rounded-[24px] p-[3px] shadow-card" style="transition-delay:.05s">
+          <div class="bg-white rounded-[21px] p-6 h-full flex flex-col">
+            <div class="flex items-center gap-3">
+              <span class="w-12 h-12 shrink-0 rounded-2xl bg-lav grid place-items-center text-[24px]">💬</span>
+              <h4 class="font-black text-[18px] leading-snug" data-i18n="addon2_t">1-on-1 Expert Consultation</h4>
+            </div>
+            <p class="mt-4 text-[17px] leading-tight font-black text-primary-700" data-i18n="addon2_price">Charged per 30-min session</p>
+            <p class="mt-3 text-[14.5px] text-[#6E6890] font-semibold leading-relaxed" data-i18n="addon2_d">Book private sessions with our experts to navigate behavioral phases, plan cultural milestones, and receive Dharmic parenting advice.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -445,7 +472,7 @@ tailwind.config = {
           <span class="w-11 h-11 rounded-full border-[3px] border-white bg-babyblue grid place-items-center font-black">2</span>
           <span class="w-11 h-11 rounded-full border-[3px] border-white bg-lav grid place-items-center font-black">3</span>
         </div>
-        <p class="font-bold text-[14.5px] text-[#5B5675]" data-i18n="how_text">How it works: Pick Silver or Gold → Join the waitlist (30 seconds) → We WhatsApp you when your slot opens. No payment now.</p>
+        <p class="font-bold text-[14.5px] text-[#5B5675]" data-i18n="how_text">How it works: Pick Spiritual Starter or Sanskar Premium → Join the waitlist (30 seconds) → We WhatsApp you when your slot opens. No payment now.</p>
       </div>
     </div>
   </section>
@@ -459,7 +486,7 @@ tailwind.config = {
       <div class="absolute -bottom-24 -left-16 w-64 h-64 rounded-full bg-honey/20 blur-3xl"></div>
       <h2 class="relative text-[26px] md:text-[36px] font-black tracking-tight leading-tight" data-i18n="final_title">Your baby's stars are waiting. ✨ Secure your beta spot today.</h2>
       <p class="relative mt-3 text-white/70 font-semibold max-w-xl mx-auto" data-i18n="final_sub">Join 30 seconds • Name + WhatsApp only • We'll message you the moment a slot opens.</p>
-      <button onclick="openModal('Gold')" class="relative mt-6 bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-4 px-10 rounded-full shadow-pop" data-i18n="final_btn">
+      <button onclick="openModal('Sanskar Premium')" class="relative mt-6 bg-honey hover:brightness-105 active:scale-[.98] transition text-ink font-black text-[17px] py-4 px-10 rounded-full shadow-pop" data-i18n="final_btn">
         Join the Waitlist
       </button>
       <p class="relative mt-3 text-[12px] font-bold text-white/50" data-i18n="final_note">By joining you agree to our Terms • Guidance &amp; entertainment purposes only</p>
@@ -470,14 +497,14 @@ tailwind.config = {
   <footer class="relative z-10 border-t border-[#EDE9FF] bg-white/70 backdrop-blur">
     <div class="max-w-5xl mx-auto px-4 py-8 text-center">
       <div class="flex items-center justify-center gap-2 font-black text-lg">
-        <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-primary-500 to-[#B39DFF] grid place-items-center text-[15px]">🌙</span> Babiyo
+        <img src="logo-mark.webp" alt="" aria-hidden="true" class="w-8 h-8 object-contain"> MomNchild
       </div>
-      <p class="mt-2 text-[13px] font-semibold text-[#8B86A5] max-w-xl mx-auto" data-i18n="footer_desc">Astrology guidance for peace of mind &amp; entertainment only. Not a substitute for medical, financial, or legal advice.</p>
+      <p class="mt-2 text-[13px] font-semibold text-[#8B86A5] max-w-xl mx-auto" data-i18n="footer_desc">Spiritual &amp; cultural guidance for peace of mind &amp; entertainment only. Not a substitute for medical, financial, or legal advice.</p>
       <div class="mt-4 flex justify-center gap-5 text-[14px] font-extrabold">
         <a href="privacy.html" class="text-primary-600 underline underline-offset-4 hover:text-primary-700" data-i18n="footer_privacy">Privacy Policy</a>
         <a href="terms.html" class="text-primary-600 underline underline-offset-4 hover:text-primary-700" data-i18n="footer_terms">Terms of Service</a>
       </div>
-      <p class="mt-4 text-[12.5px] font-bold text-[#8B86A5]"><span data-i18n="footer_copy">© Babiyo. All rights reserved. Made with 💛 for mindful parents.</span></p>
+      <p class="mt-4 text-[12.5px] font-bold text-[#8B86A5]"><span data-i18n="footer_copy">© MomNchild. All rights reserved. Made with 💛 for mindful parents.</span></p>
     </div>
   </footer>
 </div>
@@ -498,19 +525,19 @@ tailwind.config = {
 <!-- ================= WAITLIST MODAL ================= -->
 <div id="waitlistModal" class="fixed inset-0 z-[100] items-center justify-center p-0 md:p-6" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="absolute inset-0 bg-[#2D2A4A]/55 backdrop-blur-md" onclick="closeModal()"></div>
-  <div class="sheet pop relative bg-[#FFFBF2] w-full md:max-w-[440px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white">
+  <div class="sheet pop relative bg-[#FAF4E8] w-full md:max-w-[440px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white">
     <div class="bg-gradient-to-r from-[#FFF3C4] via-[#F6F2FF] to-[#DDF1FF] px-6 pt-6 pb-5 relative text-center">
       <button onclick="closeModal()" aria-label="Close" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white shadow-card grid place-items-center text-[22px] font-black text-[#5B5675] hover:rotate-90 transition">×</button>
-      <span id="planBadge" class="inline-block text-[11.5px] font-black tracking-widest uppercase bg-ink text-honey px-3.5 py-1.5 rounded-full">Gold Plan • Private Beta</span>
+      <span id="planBadge" class="inline-block text-[11.5px] font-black tracking-widest uppercase bg-ink text-honey px-3.5 py-1.5 rounded-full">Sanskar Premium Plan • Private Beta</span>
       <h2 id="modalTitle" class="mt-3 text-[24px] leading-tight font-black" data-i18n="modal_title">You're early! We are currently in Private Beta.</h2>
-      <p class="mt-2 text-[14.5px] font-semibold text-[#5B5675] leading-relaxed" id="modalBody">To ensure our astrologers can provide the best guidance, we are onboarding new parents slowly. Secure your spot on the waitlist, and we will WhatsApp you the moment a slot opens for the <b>Gold</b> Plan.</p>
+      <p class="mt-2 text-[14.5px] font-semibold text-[#5B5675] leading-relaxed" id="modalBody">To ensure our experts can provide the best personalized Havans and guidance, we are onboarding slowly. Secure your spot on the waitlist, and we will WhatsApp you the moment a slot opens for the <b>Sanskar Premium</b> Plan.</p>
     </div>
 
     <div class="px-6 py-6">
       <div id="formContainer">
         <!-- Leads go to the n8n webhook (see API_BASE_URL in the script below) -->
         <form id="waitlistForm" onsubmit="handleFormSubmit(event)" novalidate>
-          <input type="hidden" id="selectedPlan" name="plan" value="Gold">
+          <input type="hidden" id="selectedPlan" name="plan" value="Sanskar Premium">
           <div class="mb-4">
             <label class="block text-[14px] font-black mb-2" for="name"><span data-i18n="modal_name">Full Name</span> <span class="text-coral">*</span></label>
             <input class="field font-bold" id="name" name="name" type="text" data-i18n-ph="modal_name_ph" placeholder="e.g. Priya Sharma" autocomplete="name" required minlength="2">
@@ -540,8 +567,8 @@ tailwind.config = {
           <svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#1E8E5A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h2 class="mt-4 text-[24px] font-black" id="successTitle">Thank you, <span id="successName">friend</span>! 🎉</h2>
-        <p class="mt-2 text-[#5B5675] font-semibold" id="successDesc">Your spot is secured for the <b id="successPlan">Gold</b> Plan.<br>Keep an eye on your WhatsApp. 💬</p>
-        <div class="mt-4 bg-white border border-[#EDE9FF] rounded-2xl p-3 text-[13px] font-bold text-[#6E6890]"><span data-i18n="modal_invite">Invite</span> #<span id="spotNo">—</span> • <span data-i18n="modal_invite_b">We'll message you from our official Babiyo number</span></div>
+        <p class="mt-2 text-[#5B5675] font-semibold" id="successDesc">Your spot is secured for the <b id="successPlan">Sanskar Premium</b> Plan.<br>Keep an eye on your WhatsApp. 💬</p>
+        <div class="mt-4 bg-white border border-[#EDE9FF] rounded-2xl p-3 text-[13px] font-bold text-[#6E6890]"><span data-i18n="modal_invite">Invite</span> #<span id="spotNo">—</span> • <span data-i18n="modal_invite_b">We'll message you from our official MomNchild number</span></div>
         <button onclick="closeModal()" class="mt-5 w-full bg-ink text-white font-black text-[16px] py-[15px] rounded-full" data-i18n="modal_done">Done</button>
       </div>
     </div>
@@ -551,9 +578,9 @@ tailwind.config = {
 <!-- ================= QUIZ MODAL ================= -->
 <div id="quizModal" class="fixed inset-0 z-[100] items-center justify-center p-0 md:p-6" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
   <div class="absolute inset-0 bg-[#2D2A4A]/55 backdrop-blur-md" onclick="closeQuiz()"></div>
-  <div class="sheet pop relative bg-[#FFFBF2] w-full md:max-w-[460px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white">
+  <div class="sheet pop relative bg-[#FAF4E8] w-full md:max-w-[460px] md:rounded-[28px] overflow-y-auto shadow-pop border border-white">
     <div class="sheet-handle"></div>
-    <div class="sticky top-0 z-10 bg-[#FFFBF2]/95 backdrop-blur px-5 pt-4 pb-3 border-b border-[#EDE9FF]">
+    <div class="sticky top-0 z-10 bg-[#FAF4E8]/95 backdrop-blur px-5 pt-4 pb-3 border-b border-[#EDE9FF]">
       <button onclick="closeQuiz()" aria-label="Close" class="absolute top-3 right-4 w-10 h-10 rounded-full bg-white shadow-card grid place-items-center text-[22px] font-black text-[#5B5675] hover:rotate-90 transition">×</button>
       <div id="quizMoons" class="flex items-center gap-1.5" aria-hidden="true">
         <span class="moon-dot">🌑</span><span class="moon-dot">🌒</span><span class="moon-dot">🌓</span><span class="moon-dot">🌔</span><span class="moon-dot">🌕</span>
@@ -565,43 +592,47 @@ tailwind.config = {
 
 <script>
 /* ================= Custom EN/HI Language System (no Google Translate) ================= */
-const BRAND = 'Babiyo'; // change in one place when you finalize the name
+const BRAND = 'MomNchild';
 let LANG = 'en';
 try { LANG = localStorage.getItem('babiyo_lang') || 'en'; } catch(_) { LANG = 'en'; }
 if (LANG !== 'hi') LANG = 'en';
 
 const STR = {
 en: {
-  page_title: "Babiyo — Discover Your Baby's Unique Potential Through the Stars",
+  page_title: "MomNchild — Nurture Your Baby's Roots Through Ancient Sanskar",
   nav_features:"Features", nav_promise:"Our Promise", nav_specialists:"Specialists", nav_plans:"Plans",
   beta_pill:"⭐ Private Beta • Onboarding slowly",
-  float1t:"Expert Astrologers", float1s:"Real-time guidance", float2t:"Mindful Parents", float2s:"Warm community",
+  float1t:"Sanskar Experts", float1s:"Gentle guidance", float2t:"Mindful Parents", float2s:"Warm community",
   hero_badge_new:"NEW", hero_badge_text:"Ancient wisdom × Modern parenting",
-  hero_title_a:"Discover Your Baby's Unique Potential", hero_title_b:"Through the Stars.",
-  hero_sub:"Connect with expert astrologers, join a community of mindful parents, and nurture your baby's journey.",
+  hero_title_a:"Nurture Your Baby's Roots", hero_title_b:"Through Ancient Sanskar.",
+  hero_sub:"Access digital Sanskar guides, soothing audiobooks, virtual rituals, and a community of mindful parents building strong cultural roots.",
   hero_cta_offer:"What we offer", hero_cta_quiz:"✨ Discover Your Child's Hidden Potential",
   trust1:"✅ No spam, ever", trust2:"💬 WhatsApp updates only", trust3:"🛡️ Guidance + entertainment",
   feat_eyebrow:"What we offer", feat_title:"Everything a new parent needs, in one cozy place",
-  feat_sub:"Friendly guidance, real community, and joyful rituals — without the dark, scary astrology vibe.",
-  f1t:"Chat with an Astrologer Anytime", f1d:"Get real-time guidance on your baby's well-being and future potential.",
-  f2t:"Parent Community", f2d:"Share milestones and connect with parents on the same cosmic journey.",
-  f3t:"Monthly Well-being Poojas", f3d:"Dedicated monthly poojas performed for your baby's health and happiness.",
-  f4t:"Weekly Contests", f4d:"Participate in fun weekly activities and win rewards for your little one.",
+  feat_sub:"Sanskar guides, calming audio, and joyful rituals — ancient wisdom made simple for modern parents.",
+  f1t:"Digital Sanskar Guru", f1d:"Get scripture-verified, age-appropriate answers to your parenting and spiritual questions anytime.",
+  f2t:"Soothing Audiobooks", f2d:"Screen-free Baby Geeta and simplified Shlokas designed for peaceful bedtime routines and playtime.",
+  f3t:"5-Minute Moral Lessons", f3d:"Bite-sized, actionable Dharmic values for parents to easily teach and instill in their children daily.",
+  f4t:"Mindful Parent Community", f4d:"A judgement-free village to share milestones, values, and traditional remedies with like-minded mothers.",
   promise_title:"Our Promise to Parents",
   promise_desc:"We are building a nurturing space where ancient wisdom meets modern parenting. Our goal is to provide you with peace of mind, community support, and positive guidance as your baby grows.",
   v1t:"💛 Peace of mind", v1d:"Gentle, positive guidance — never fear-based.",
   v2t:"🤝 Community first", v2d:"Real parents, real milestones, together.",
-  v3t:"🌙 Slow & careful", v3d:"Private beta, limited slots per astrologer.",
+  v3t:"🌙 Slow & careful", v3d:"Private beta, limited slots per expert.",
   pricing_eyebrow:"Private Beta • Limited slots", pricing_title:"Choose Your Plan",
   pricing_sub:"Tap a plan to secure your waitlist spot. We'll WhatsApp you the moment a slot opens.",
-  silver_name:"Silver Plan", silver_tag:"Starter", silver_per:"/month", silver_desc:"Perfect to explore community + contests",
-  silver_f1:"Access to Parent Community", silver_f2:"Weekly Contests", silver_f3:"1 Astrologer Query / month",
-  silver_btn:"Private Waitlist — Silver",
-  popular:"⭐ Most Popular", gold_name:"Gold Plan", gold_tag:"Best value", gold_per:"/month",
-  gold_desc:"For parents who want full guidance", gold_f1:"Everything in Silver",
-  gold_f2:"Unlimited Astrologer Chat", gold_f3:"Monthly Personalized Pooja",
-  gold_btn:"Private Waitlist — Gold", gold_note:"🔒 Only a few beta slots per week",
-  how_text:"How it works: Pick Silver or Gold → Join the waitlist (30 seconds) → We WhatsApp you when your slot opens. No payment now.",
+  starter_name:"Spiritual Starter", starter_sub:"Daily Sanskar", starter_per:"/month", starter_desc:"Perfect for building daily cultural habits.",
+  starter_f1:"Unlimited Digital Sanskar Guru (AI)", starter_f2:"Access to Baby Geeta & Shloka Audiobooks", starter_f3:"Daily 5-Minute Moral Lesson Modules", starter_f4:"Access to Mindful Parent Community",
+  starter_btn:"Choose Spiritual Starter",
+  popular:"⭐ Most Popular", premium_name:"Sanskar Premium", premium_sub:"Complete Spiritual Care", premium_per:"/month",
+  premium_desc:"For parents who want personalized rituals and expert guidance.", premium_f1:"Everything in Spiritual Starter",
+  premium_f2:"1 On-Demand Virtual Havan/month (Personalized with Baby's Gotra)", premium_f3:"🎁 Bonus: 1 Free 30-Min Expert Consultation (Welcome Offer)", premium_f4:"Priority booking for Temple Poojas",
+  premium_btn:"Choose Sanskar Premium", premium_note:"🔒 Limited virtual Havan slots available per month.",
+  bless_eyebrow:"Premium Upgrades", bless_title:"Premium Special Blessings & Care",
+  bless_sub:"Exclusive rituals and expert guidance reserved for active members.",
+  addon1_t:"Famous Temple Poojas", addon1_price:"₹1,100 - ₹5,100+", addon1_d:"Request specialized poojas at India's most iconic temples. Includes a video of the Sankalp taken in your baby's name and doorstep Prasad delivery.",
+  addon2_t:"1-on-1 Expert Consultation", addon2_price:"Charged per 30-min session", addon2_d:"Book private sessions with our experts to navigate behavioral phases, plan cultural milestones, and receive Dharmic parenting advice.",
+  how_text:"How it works: Pick Spiritual Starter or Sanskar Premium → Join the waitlist (30 seconds) → We WhatsApp you when your slot opens. No payment now.",
   quiz_intro_t:"Discover Your Baby's Cosmic Blessing ✨",
   quiz_intro_d:"Answer 4 gentle questions about your little one and receive a warm glimpse into their soul — written in the stars. Takes less than a minute.",
   quiz_begin:"Begin ✨", quiz_back:"← Back", quiz_restart:"↻ Start fresh",
@@ -627,22 +658,22 @@ en: {
   quiz_unlock:"Unlock My Full Roadmap →",
   quiz_upsell_t:"This is just a glimpse ✨",
   quiz_upsell_d:"The exact positions of the stars at the moment of their birth hold the complete roadmap to their health, career, and spiritual well-being. Let us read their complete cosmic blueprint.",
-  quiz_card200_t:"The Core Harmony Reading — ₹200", quiz_card200_d:"Essential well-being, planetary strengths, and foundational remedies.", quiz_pick200:"Choose Harmony — ₹200",
-  quiz_card300_t:"The Complete Cosmic Roadmap — ₹300", quiz_card300_d:"Detailed life path, deep spiritual analysis, specific mantras, and parental guidance.", quiz_pick300:"Choose Roadmap — ₹300",
+  quiz_card_starter_t:"Spiritual Starter — ₹299/month", quiz_card_starter_d:"Daily Sanskar — unlimited Sanskar Guru, Baby Geeta audiobooks, moral lessons, and the mindful parent community.", quiz_pick_starter:"Choose Starter — ₹299",
+  quiz_card_premium_t:"Sanskar Premium — ₹799/month", quiz_card_premium_d:"Complete Spiritual Care — monthly virtual Havan, a 30-min expert consultation, and priority Temple Poojas.", quiz_pick_premium:"Choose Premium — ₹799",
   quiz_attached:"✨ Quiz blessing attached — no need to re-enter birth details.",
   quiz_banner_t:"Discover Your Baby's Cosmic Blessing",
   quiz_banner_d:"Answer 4 gentle questions, get your baby's blessing in under a minute.",
   quiz_banner_c:"Take the Quiz ✨",
-  spec_eyebrow:"Meet the experts behind Babiyo", spec_title:"Meet Our Specialists",
-  spec_sub:"Real astrologers for mothers & babies — the team guiding your Silver or Gold plan.",
+  spec_eyebrow:"Meet the experts behind MomNchild", spec_title:"Meet Our Specialists",
+  spec_sub:"Sanskar experts for mothers & babies — the team guiding your Spiritual Starter or Sanskar Premium plan.",
   final_title:"Your baby's stars are waiting. ✨ Secure your beta spot today.",
   final_sub:"Join 30 seconds • Name + WhatsApp only • We'll message you the moment a slot opens.",
   final_btn:"Join the Waitlist", final_note:"By joining you agree to our Terms • Guidance & entertainment purposes only",
-  footer_desc:"Astrology guidance for peace of mind & entertainment only. Not a substitute for medical, financial, or legal advice.",
+  footer_desc:"Spiritual & cultural guidance for peace of mind & entertainment only. Not a substitute for medical, financial, or legal advice.",
   footer_privacy:"Privacy Policy", footer_terms:"Terms of Service",
-  footer_copy:"© Babiyo. All rights reserved. Made with 💛 for mindful parents.",
+  footer_copy:"© MomNchild. All rights reserved. Made with 💛 for mindful parents.",
   modal_title:"You're early! We are currently in Private Beta.",
-  modal_body:"To ensure our astrologers can provide the best guidance, we are onboarding new parents slowly. Secure your spot on the waitlist, and we will WhatsApp you the moment a slot opens for the <b>{plan}</b> Plan.",
+  modal_body:"To ensure our experts can provide the best personalized Havans and guidance, we are onboarding slowly. Secure your spot on the waitlist, and we will WhatsApp you the moment a slot opens for the <b>{plan}</b> Plan.",
   plan_badge:"{plan} Plan • Private Beta",
   modal_name:"Full Name", modal_name_ph:"e.g. Priya Sharma", modal_name_err:"Please enter your full name.",
   modal_phone:"WhatsApp Number", modal_phone_err:"Enter a valid 10-digit mobile number (digits only).",
@@ -652,39 +683,43 @@ en: {
   modal_consent:"By continuing you agree to the", link_terms:"Terms", link_privacy:"Privacy Policy",
   modal_success_t:"Thank you, {name}! 🎉",
   modal_success_d:"Your spot is secured for the <b>{plan}</b> Plan.<br>Keep an eye on your WhatsApp. 💬",
-  modal_invite:"Invite", modal_invite_b:"We'll message you from our official Babiyo number", modal_done:"Done"
+  modal_invite:"Invite", modal_invite_b:"We'll message you from our official MomNchild number", modal_done:"Done"
 },
 hi: {
-  page_title: "Babiyo — सितारों के ज़रिए अपने बेबी की यूनिक पोटेंशियल खोजें",
+  page_title: "MomNchild — प्राचीन संस्कारों के ज़रिए अपने बेबी की जड़ें सींचें",
   nav_features:"फीचर्स", nav_promise:"हमारा वादा", nav_specialists:"विशेषज्ञ", nav_plans:"प्लान्स",
   beta_pill:"⭐ प्राइवेट Beta • धीरे-धीरे onboarding",
-  float1t:"एक्सपर्ट एस्ट्रोलॉजर्स", float1s:"तुरंत मार्गदर्शन", float2t:"समझदार पैरेंट्स", float2s:"प्यारी कम्युनिटी",
+  float1t:"संस्कार एक्सपर्ट्स", float1s:"सौम्य मार्गदर्शन", float2t:"समझदार पैरेंट्स", float2s:"प्यारी कम्युनिटी",
   hero_badge_new:"नया", hero_badge_text:"प्राचीन ज्ञान × मॉडर्न पेरेंटिंग",
-  hero_title_a:"अपने बेबी की यूनिक पोटेंशियल खोजें", hero_title_b:"सितारों के ज़रिए।",
-  hero_sub:"एक्सपर्ट एस्ट्रोलॉजर्स से जुड़ें, समझदार पैरेंट्स की कम्युनिटी में शामिल हों, और अपने बेबी की जर्नी को संवारें।",
+  hero_title_a:"अपने बेबी की जड़ों को सींचें", hero_title_b:"प्राचीन संस्कारों के ज़रिए।",
+  hero_sub:"डिजिटल संस्कार गाइड्स, सुकून भरी ऑडियोबुक्स, वर्चुअल रिचुअल्स और समझदार पैरेंट्स की कम्युनिटी — मज़बूत सांस्कृतिक जड़ों के लिए।",
   hero_cta_offer:"हम क्या देते हैं", hero_cta_quiz:"✨ अपने बच्चे की छिपी पोटेंशियल खोजें",
   trust1:"✅ कोई स्पैम नहीं", trust2:"💬 सिर्फ WhatsApp अपडेट", trust3:"🛡️ मार्गदर्शन + एंटरटेनमेंट",
   feat_eyebrow:"हम क्या ऑफर करते हैं", feat_title:"नए पैरेंट्स को जो चाहिए, सब एक प्यारी जगह पर",
-  feat_sub:"दोस्ताना मार्गदर्शन, सच्ची कम्युनिटी और खुशियों भरे रिचुअल्स — डरावने ज्योतिष वाले माहौल के बिना।",
-  f1t:"कभी भी एस्ट्रोलॉजर से चैट करें", f1d:"अपने बेबी की सेहत और फ्यूचर पोटेंशियल पर तुरंत मार्गदर्शन पाएं।",
-  f2t:"पैरेंट कम्युनिटी", f2d:"माइलस्टोन्स शेयर करें और same cosmic journey वाले पैरेंट्स से जुड़ें।",
-  f3t:"मंथली वेल-बीइंग पूजाएं", f3d:"आपके बेबी की सेहत और खुशी के लिए हर महीने विशेष पूजा।",
-  f4t:"वीकली कॉन्टेस्ट", f4d:"मज़ेदार वीकली एक्टिविटीज़ में हिस्सा लें और अपने नन्हे मेहमान के लिए इनाम जीतें।",
+  feat_sub:"संस्कार गाइड्स, सुकून भरा ऑडियो और खुशियों भरे रिचुअल्स — मॉडर्न पैरेंट्स के लिए प्राचीन ज्ञान, आसान अंदाज़ में।",
+  f1t:"डिजिटल संस्कार गुरु", f1d:"अपने पेरेंटिंग और आध्यात्मिक सवालों के शास्त्र-सम्मत, उम्र के अनुसार जवाब कभी भी पाएं।",
+  f2t:"सुकून भरी ऑडियोबुक्स", f2d:"स्क्रीन-फ्री Baby Geeta और आसान श्लोक — शांत बेडटाइम रूटीन और खेल के समय के लिए।",
+  f3t:"5-मिनट मोरल लेसन्स", f3d:"छोटे-छोटे, आसान धार्मिक मूल्य जो पैरेंट्स रोज़ अपने बच्चों में सिखा सकें।",
+  f4t:"समझदार पैरेंट कम्युनिटी", f4d:"माइलस्टोन्स, मूल्यों और पारंपरिक नुस्खों को साझा करने की बिना-जजमेंट जगह — मिलते-जुलते पैरेंट्स के साथ।",
   promise_title:"पैरेंट्स से हमारा वादा",
   promise_desc:"हम एक ऐसी प्यारी जगह बना रहे हैं जहाँ प्राचीन ज्ञान मिलता है मॉडर्न पेरेंटिंग से। हमारा मकसद है आपको सुकून, कम्युनिटी का साथ और पॉज़िटिव मार्गदर्शन देना, जैसे-जैसे आपका बेबी बड़ा होता है।",
   v1t:"💛 मन का सुकून", v1d:"सौम्य, पॉज़िटिव मार्गदर्शन — कभी डराने वाला नहीं।",
   v2t:"🤝 कम्युनिटी सबसे पहले", v2d:"असली पैरेंट्स, असली माइलस्टोन्स, सब साथ।",
-  v3t:"🌙 धीरे और सावधानी से", v3d:"प्राइवेट Beta, हर एस्ट्रोलॉजर के पास लिमिटेड स्लॉट्स।",
+  v3t:"🌙 धीरे और सावधानी से", v3d:"प्राइवेट Beta, हर एक्सपर्ट के पास लिमिटेड स्लॉट्स।",
   pricing_eyebrow:"प्राइवेट Beta • लिमिटेड स्लॉट्स", pricing_title:"अपना प्लान चुनें",
   pricing_sub:"अपनी waitlist सीट पक्की करने के लिए कोई प्लान दबाएं। स्लॉट खुलते ही हम आपको WhatsApp करेंगे।",
-  silver_name:"Silver Plan", silver_tag:"स्टार्टर", silver_per:"/महीना", silver_desc:"कम्युनिटी + कॉन्टेस्ट try करने के लिए परफेक्ट",
-  silver_f1:"पैरेंट कम्युनिटी का एक्सेस", silver_f2:"वीकली कॉन्टेस्ट", silver_f3:"1 एस्ट्रोलॉजर सवाल / महीना",
-  silver_btn:"प्राइवेट Waitlist — Silver",
-  popular:"⭐ सबसे पॉपुलर", gold_name:"Gold Plan", gold_tag:"बेस्ट वैल्यू", gold_per:"/महीना",
-  gold_desc:"पूरा मार्गदर्शन चाहने वाले पैरेंट्स के लिए", gold_f1:"Silver वाला सब कुछ",
-  gold_f2:"अनलिमिटेड एस्ट्रोलॉजर चैट", gold_f3:"मंथली पर्सनलाइज़्ड पूजा",
-  gold_btn:"प्राइवेट Waitlist — Gold", gold_note:"🔒 हर हफ्ते सिर्फ कुछ Beta स्लॉट्स",
-  how_text:"कैसे काम करता है: Silver या Gold चुनें → Waitlist जॉइन करें (30 सेकंड) → स्लॉट खुलते ही हम WhatsApp करेंगे। अभी कोई पेमेंट नहीं।",
+  starter_name:"Spiritual Starter", starter_sub:"रोज़ का संस्कार", starter_per:"/महीना", starter_desc:"रोज़ के सांस्कृतिक अभ्यास बनाने के लिए परफेक्ट।",
+  starter_f1:"अनलिमिटेड डिजिटल संस्कार गुरु (AI)", starter_f2:"Baby Geeta और श्लोक ऑडियोबुक्स का एक्सेस", starter_f3:"रोज़ाना 5-मिनट मोरल लेसन मॉड्यूल", starter_f4:"समझदार पैरेंट कम्युनिटी का एक्सेस",
+  starter_btn:"Spiritual Starter चुनें",
+  popular:"⭐ सबसे पॉपुलर", premium_name:"Sanskar Premium", premium_sub:"पूर्ण आध्यात्मिक देखभाल", premium_per:"/महीना",
+  premium_desc:"पर्सनलाइज़्ड रिचुअल्स और एक्सपर्ट मार्गदर्शन चाहने वाले पैरेंट्स के लिए।", premium_f1:"Spiritual Starter वाला सब कुछ",
+  premium_f2:"हर महीने 1 ऑन-डिमांड वर्चुअल हवन (बेबी के गोत्र के साथ पर्सनलाइज़्ड)", premium_f3:"🎁 बोनस: 1 फ्री 30-मिनट एक्सपर्ट कंसल्टेशन (Welcome Offer)", premium_f4:"Temple Poojas के लिए प्रायोरिटी बुकिंग",
+  premium_btn:"Sanskar Premium चुनें", premium_note:"🔒 हर महीने लिमिटेड वर्चुअल हवन स्लॉट्स।",
+  bless_eyebrow:"प्रीमियम अपग्रेड्स", bless_title:"प्रीमियम विशेष आशीर्वाद व देखभाल",
+  bless_sub:"एक्सक्लूसिव रिचुअल्स और एक्सपर्ट मार्गदर्शन — सिर्फ एक्टिव मेंबर्स के लिए आरक्षित।",
+  addon1_t:"प्रसिद्ध मंदिरों की पूजाएं", addon1_price:"₹1,100 - ₹5,100+", addon1_d:"भारत के सबसे प्रतिष्ठित मंदिरों में विशेष पूजा का अनुरोध करें। आपके बेबी के नाम से लिए गए संकल्प का वीडियो और घर तक प्रसाद डिलीवरी शामिल।",
+  addon2_t:"1-on-1 एक्सपर्ट कंसल्टेशन", addon2_price:"हर 30-मिनट सेशन का चार्ज", addon2_d:"बिहेवियरल फेज़ समझने, सांस्कृतिक माइलस्टोन्स प्लान करने और धार्मिक पेरेंटिंग सलाह के लिए हमारे एक्सपर्ट्स के साथ प्राइवेट सेशन बुक करें।",
+  how_text:"कैसे काम करता है: Spiritual Starter या Sanskar Premium चुनें → Waitlist जॉइन करें (30 सेकंड) → स्लॉट खुलते ही हम WhatsApp करेंगे। अभी कोई पेमेंट नहीं।",
   quiz_intro_t:"अपने बेबी का कॉस्मिक आशीर्वाद खोजें ✨",
   quiz_intro_d:"अपने नन्हे मेहमान के बारे में 4 आसान सवालों के जवाब दें और सितारों में लिखी उनकी आत्मा की एक प्यारी झलक पाएं। एक मिनट से भी कम समय लगता है।",
   quiz_begin:"शुरू करें ✨", quiz_back:"← वापस", quiz_restart:"↻ नए सिरे से शुरू करें",
@@ -710,22 +745,22 @@ hi: {
   quiz_unlock:"मेरा पूरा रोडमैप खोलें →",
   quiz_upsell_t:"यह तो सिर्फ एक झलक है ✨",
   quiz_upsell_d:"उनके जन्म के समय सितारों की सही स्थिति में उनकी सेहत, करियर और आध्यात्मिक well-being का पूरा रोडमैप छिपा है। आइए उनका पूरा कॉस्मिक ब्लूप्रिंट पढ़ें।",
-  quiz_card200_t:"द कोर हार्मनी रीडिंग — ₹200", quiz_card200_d:"बुनियादी well-being, ग्रहों की ताकत और आसान उपाय।", quiz_pick200:"हार्मनी चुनें — ₹200",
-  quiz_card300_t:"द कंप्लीट कॉस्मिक रोडमैप — ₹300", quiz_card300_d:"विस्तृत जीवन पथ, गहरा आध्यात्मिक विश्लेषण, विशेष मंत्र और पैरेंटल मार्गदर्शन।", quiz_pick300:"रोडमैप चुनें — ₹300",
+  quiz_card_starter_t:"Spiritual Starter — ₹299/महीना", quiz_card_starter_d:"रोज़ का संस्कार — अनलिमिटेड संस्कार गुरु, Baby Geeta ऑडियोबुक्स, मोरल लेसन्स और पैरेंट कम्युनिटी।", quiz_pick_starter:"स्टार्टर चुनें — ₹299",
+  quiz_card_premium_t:"Sanskar Premium — ₹799/महीना", quiz_card_premium_d:"पूर्ण आध्यात्मिक देखभाल — मंथली वर्चुअल हवन, 30-मिनट एक्सपर्ट कंसल्टेशन और प्रायोरिटी Temple Poojas।", quiz_pick_premium:"प्रीमियम चुनें — ₹799",
   quiz_attached:"✨ क्विज़ आशीर्वाद जुड़ा है — जन्म विवरण दोबारा लिखने की ज़रूरत नहीं।",
   quiz_banner_t:"अपने बेबी का कॉस्मिक आशीर्वाद खोजें",
   quiz_banner_d:"4 आसान सवालों के जवाब दें, एक मिनट से भी कम में अपने बेबी का आशीर्वाद पाएं।",
   quiz_banner_c:"क्विज़ लें ✨",
-  spec_eyebrow:"Babiyo के पीछे के एक्सपर्ट्स", spec_title:"हमारे विशेषज्ञों से मिलें",
-  spec_sub:"माओं और बेबीज़ के लिए असली एस्ट्रोलॉजर्स — आपके Silver या Gold प्लान का मार्गदर्शन करने वाली टीम।",
+  spec_eyebrow:"MomNchild के पीछे के एक्सपर्ट्स", spec_title:"हमारे विशेषज्ञों से मिलें",
+  spec_sub:"माओं और बेबीज़ के लिए संस्कार एक्सपर्ट्स — आपके Spiritual Starter या Sanskar Premium प्लान का मार्गदर्शन करने वाली टीम।",
   final_title:"आपके बेबी के सितारे इंतज़ार कर रहे हैं। ✨ आज ही अपनी Beta सीट पक्की करें।",
   final_sub:"30 सेकंड में जॉइन करें • सिर्फ Name + WhatsApp • स्लॉट खुलते ही मैसेज करेंगे।",
   final_btn:"Waitlist जॉइन करें", final_note:"जॉइन करके आप Terms से सहमत हैं • सिर्फ मार्गदर्शन और एंटरटेनमेंट के लिए",
-  footer_desc:"ज्योतिष मार्गदर्शन सिर्फ सुकून और एंटरटेनमेंट के लिए। यह मेडिकल, फाइनेंशियल या कानूनी सलाह का विकल्प नहीं है।",
+  footer_desc:"आध्यात्मिक और सांस्कृतिक मार्गदर्शन सिर्फ सुकून और एंटरटेनमेंट के लिए। यह मेडिकल, फाइनेंशियल या कानूनी सलाह का विकल्प नहीं है।",
   footer_privacy:"प्राइवेसी पॉलिसी", footer_terms:"नियम व शर्तें",
-  footer_copy:"© Babiyo. सर्वाधिकार सुरक्षित। समझदार पैरेंट्स के लिए 💛 के साथ बनाया गया।",
+  footer_copy:"© MomNchild. सर्वाधिकार सुरक्षित। समझदार पैरेंट्स के लिए 💛 के साथ बनाया गया।",
   modal_title:"आप जल्दी आ गए! हम अभी प्राइवेट Beta में हैं।",
-  modal_body:"ताकि हमारे एस्ट्रोलॉजर्स आपको सबसे अच्छा मार्गदर्शन दे सकें, हम नए पैरेंट्स को धीरे-धीरे जोड़ रहे हैं। Waitlist में अपनी सीट पक्की करें, <b>{plan}</b> Plan के लिए स्लॉट खुलते ही हम आपको WhatsApp करेंगे।",
+  modal_body:"ताकि हमारे एक्सपर्ट्स आपके लिए बेहतरीन पर्सनलाइज़्ड हवन और मार्गदर्शन दे सकें, हम धीरे-धीरे onboarding कर रहे हैं। Waitlist में अपनी सीट पक्की करें, <b>{plan}</b> Plan के लिए स्लॉट खुलते ही हम आपको WhatsApp करेंगे।",
   plan_badge:"{plan} Plan • प्राइवेट Beta",
   modal_name:"पूरा नाम", modal_name_ph:"जैसे प्रिया शर्मा", modal_name_err:"कृपया अपना पूरा नाम लिखें।",
   modal_phone:"WhatsApp नंबर", modal_phone_err:"सही 10 अंकों का मोबाइल नंबर लिखें (सिर्फ अंक)।",
@@ -735,7 +770,7 @@ hi: {
   modal_consent:"आगे बढ़कर आप सहमत हैं", link_terms:"नियम", link_privacy:"प्राइवेसी पॉलिसी",
   modal_success_t:"धन्यवाद, {name}! 🎉",
   modal_success_d:"<b>{plan}</b> Plan के लिए आपकी सीट पक्की हो गई है।<br>अपने WhatsApp पर नज़र रखें। 💬",
-  modal_invite:"इनवाइट", modal_invite_b:"हम आपको Babiyo के ऑफिशियल नंबर से मैसेज करेंगे", modal_done:"हो गया"
+  modal_invite:"इनवाइट", modal_invite_b:"हम आपको MomNchild के ऑफिशियल नंबर से मैसेज करेंगे", modal_done:"हो गया"
 }};
 
 const T = k => (STR[LANG] && STR[LANG][k]) || STR.en[k] || k;
@@ -760,7 +795,7 @@ function setLang(lang, save=true){
 
 function currentPlan(){
   const el = document.getElementById('selectedPlan');
-  return (el && el.value === 'Silver') ? 'Silver' : 'Gold';
+  return (el && el.value === 'Spiritual Starter') ? 'Spiritual Starter' : 'Sanskar Premium';
 }
 function renderPlanTexts(){
   const plan = currentPlan();
@@ -819,11 +854,11 @@ const waitlistForm = document.getElementById('waitlistForm');
 const submitBtn = document.getElementById('submitBtn');
 
 function openModal(plan){
-  plan = (plan==='Silver') ? 'Silver' : 'Gold';
+  plan = (plan==='Spiritual Starter') ? 'Spiritual Starter' : 'Sanskar Premium';
   document.getElementById('selectedPlan').value = plan;
   renderPlanTexts();
   const badge = document.getElementById('planBadge');
-  badge.className = 'inline-block text-[11.5px] font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full ' + (plan==='Gold' ? 'bg-ink text-[#FFC94D]' : 'bg-white text-primary-700 border border-[#EDE9FF]');
+  badge.className = 'inline-block text-[11.5px] font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full ' + (plan==='Sanskar Premium' ? 'bg-ink text-[#FFC94D]' : 'bg-white text-primary-700 border border-[#EDE9FF]');
   formContainer.classList.remove('hidden');
   successMessage.classList.add('hidden');
   waitlistForm.reset();
@@ -1290,15 +1325,15 @@ function renderQuiz(){
       </div>
       <div class="mt-4 grid gap-3">
         <div class="bg-white border-2 border-[#F1EDFF] rounded-[20px] p-5 text-center">
-          <b class="block text-[17px]">${quizEsc(T('quiz_card200_t'))}</b>
-          <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card200_d'))}</p>
-          <button onclick="quizToPlan('Silver')" class="mt-3 w-full bg-[#F1EDFF] hover:bg-[#E3DAFF] active:scale-[.98] transition text-ink font-black text-[16px] py-3.5 rounded-full">${quizEsc(T('quiz_pick200'))}</button>
+          <b class="block text-[17px]">${quizEsc(T('quiz_card_starter_t'))}</b>
+          <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card_starter_d'))}</p>
+          <button onclick="quizToPlan('Spiritual Starter')" class="mt-3 w-full bg-[#F1EDFF] hover:bg-[#E3DAFF] active:scale-[.98] transition text-ink font-black text-[16px] py-3.5 rounded-full">${quizEsc(T('quiz_pick_starter'))}</button>
         </div>
         <div class="bg-gradient-to-b from-[#6A5AE0] to-[#5849C7] rounded-[20px] p-[3px]">
           <div class="bg-white rounded-[17px] p-5 text-center">
-            <b class="block text-[17px] text-primary-700">${quizEsc(T('quiz_card300_t'))}</b>
-            <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card300_d'))}</p>
-            <button onclick="quizToPlan('Gold')" class="mt-3 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[16px] py-3.5 rounded-full shadow-pop">${quizEsc(T('quiz_pick300'))}</button>
+            <b class="block text-[17px] text-primary-700">${quizEsc(T('quiz_card_premium_t'))}</b>
+            <p class="mt-1 text-[13.5px] font-semibold text-[#6E6890]">${quizEsc(T('quiz_card_premium_d'))}</p>
+            <button onclick="quizToPlan('Sanskar Premium')" class="mt-3 w-full bg-primary-600 hover:bg-primary-700 active:scale-[.98] transition text-white font-black text-[16px] py-3.5 rounded-full shadow-pop">${quizEsc(T('quiz_pick_premium'))}</button>
           </div>
         </div>
       </div>
